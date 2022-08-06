@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Categories = () => {
-	const categoryName  = ["По популярности", "По рейтингу"]
-	const [activeCategory, setActiveCategory] = useState('По популярности')
-	const changeActiveCategory = (category) => {
-		setActiveCategory(category)
-	}
+
+const Categories = ({setActiveGenre, activeGenre, setFiltered, movies}) => {
+	const categoryName  = ["Все фильмы", "Комедии", "Боевики", "Приключения", "Мультфильмы", "Сериалы", "Ужасы"]
+	const allGenres = [0, 35, 28, 12, 16, 10770, 53]
+	
+	useEffect(() => {
+		if(activeGenre === 0) {
+			setFiltered(movies)
+			return
+		}
+		const filtered = movies.filter((movie) => movie.genre_ids.includes(activeGenre))
+		setFiltered(filtered)
+	}, [activeGenre])
 	return (
-		<div className='categories'>
-			<ul className='flex gap-4'>
-				{categoryName.map(category => (
-					<li 
-					key={category} 
-					onClick={() => changeActiveCategory(category)} 
-					className={activeCategory === category ? "bg-gradient-to-r from-red-500 to-pink-500 p-4 rounded-full cursor-pointer" : "p-4 rounded-full cursor-pointer"}>
-						{category}
-					</li>
-				))}
-			</ul>
-		</div>
+		<ul className='flex gap-4'>
+			{categoryName.map((category, index) => (
+				<button onClick={() => setActiveGenre(allGenres[index])}>{category}</button>
+			))}
+		</ul>
 	)
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Button from '../components/UI/Button'
+import Button from '../components/ui/Button'
 
 const Header = () => {
 	const [headerItem, setHeaderItem] = useState([
