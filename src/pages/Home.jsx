@@ -5,6 +5,8 @@ import MovieBoxLoader from '../components/MovieBoxLoader'
 
 import Header from '../layouts/Header'
 
+import {motion} from 'framer-motion'
+
 const API_URL =
 	'https://api.themoviedb.org/3/movie/popular?api_key=d8888bf513595a2de41979608397fb02&language=ru'
 const Home = () => {
@@ -25,11 +27,11 @@ const Home = () => {
 		<>
 			<Header />
 			<Categories movies={movies} setFiltered={setFiltered} activeGenre={activeGenre} setActiveGenre={setActiveGenre}/>
-			<div className='grid grid-cols-6'>
+			<motion.div layout className='grid grid-cols-2 place-content-center px-4 md:grid-cols-4 xl:grid-cols-6 lg:grid-cols-5 gap-6'>
 				{loading
 					? [...new Array(12)].map((_, index) => <MovieBoxLoader key={index} />)
 					: filtered.map(movie => <MovieBox {...movie} key={movie.id} />)}
-			</div>
+			</motion.div>
 		</>
 	)
 }

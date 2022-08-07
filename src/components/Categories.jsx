@@ -14,9 +14,10 @@ const Categories = ({setActiveGenre, activeGenre, setFiltered, movies}) => {
 		setFiltered(filtered)
 	}, [activeGenre])
 	return (
+		
 		<ul className='flex gap-4'>
 			{categoryName.map((category, index) => (
-				<button onClick={() => setActiveGenre(allGenres[index])}>{category}</button>
+				<button className={activeGenre === allGenres[index] ? 'p-4 rounded-full bg-blue-700' : 'p-4'} onClick={() => setActiveGenre(allGenres[index])}>{category}</button>
 			))}
 		</ul>
 	)
