@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
 const MovieBox = ({ title, poster_path, vote_average }) => {
 	return (
-		<motion.div layout className='md:box-width relative'>
+		<motion.div layout className='w-60 sm:w-56 relative'>
 			<div className='mb-2 '>
 				<img className='rounded-md' src={API_IMG + poster_path} alt='' />
 			</div>

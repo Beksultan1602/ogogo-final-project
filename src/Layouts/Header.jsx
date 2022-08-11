@@ -1,18 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../components/ui/Button'
-
+import { BsFillPersonFill } from 'react-icons/bs'
 const Header = () => {
-	const [headerItem, setHeaderItem] = useState([
+	const headerItem= [
 		'Мой ivi',
 		'Что нового',
 		'Фильмы',
 		'Сериалы',
 		'Мультфильмы',
 		'Тв-каналы',
-	])
+	]
 
 	return (
-		<div className='flex justify-between items-center pt-4'>
+		<div className='flex justify-between items-center pt-4 container mx-auto'>
 			<ul className='flex gap-4'>
 				{headerItem.map(category => (
 					<li
@@ -24,8 +24,11 @@ const Header = () => {
 					</li>
 				))}
 			</ul>
-			<div>
+			<div className='flex items-center gap-6'>
 				<Button>Войти или зарегистрироваться</Button>
+				<div className='p-2 border-2 rounded-lg border-slate-500'>
+					<BsFillPersonFill className='fill-slate-500'/>
+				</div>
 			</div>
 		</div>
 	)
