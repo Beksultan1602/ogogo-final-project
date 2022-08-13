@@ -3,8 +3,8 @@ import React from 'react'
 
 
 const Categories = ({setActiveGenre, activeGenre}) => {
-	const categoryName  = ["Все фильмы", "Комедии", "Боевики", "Приключения", "Мультфильмы", "Сериалы", "Ужасы"]
-	const allGenres = [0, 35, 28, 12, 16, 10770, 53]
+	const categoryName  = ["Все фильмы", "Комедии", "Боевики", "Приключения", "Мультфильмы", "Ужасы"]
+	const allGenres = [0, 35, 28, 12, 16, 53]
 	
 
 	return (

@@ -1,0 +1,29 @@
+.paginationWrapper {
+  margin-top: 2.5rem;
+}
+ul {
+	display: flex;
+	gap: 0.8rem;
+}
+li {
+	padding: 1.5px;
+}
+a {
+	font-size: 14px;
+	cursor: pointer;
+	color: #f6f6f6;
+	font-weight: 600;
+	padding: 10px 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 50%;
+	transition-duration: 300ms;
+}
+a:hover {
+	background-color: #ea003d;
+}
+a:focus {
+	background-color: #ea003d;
+}
