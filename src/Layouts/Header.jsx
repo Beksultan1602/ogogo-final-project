@@ -1,9 +1,13 @@
 import React from 'react'
 import Button from '../components/ui/Button'
 import { BsFillPersonFill } from 'react-icons/bs'
+
+import Search from '../components/search/Search'
+
 import { Link } from 'react-router-dom'
+
 const Header = () => {
-	const headerItem= [
+	const headerItem = [
 		'Мой ivi',
 		'Избранное',
 		'Фильмы',
@@ -24,12 +28,19 @@ const Header = () => {
 						{category}
 					</li>
 				))}
+<<<<<<< HEAD
+			</ul>
+
+			
+=======
 			</ul> */}
+			<Search />
 			<Link to='/favorites'>Избранное</Link>
+
 			<div className='flex items-center gap-6'>
 				<Button>Войти или зарегистрироваться</Button>
 				<div className='p-2 border-2 rounded-lg border-slate-500'>
-					<BsFillPersonFill className='fill-slate-500'/>
+					<BsFillPersonFill className='fill-slate-500' />
 				</div>
 			</div>
 		</div>
