@@ -3,33 +3,40 @@ import '../styles/main.css'
 
 import { motion } from 'framer-motion'
 import { BsFillBookmarkFill } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
+
 
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
 const MovieBox = ({ title, poster_path, vote_average }) => {
+
 	const [activeBox, setActiveBox] = useState(false)
+	const navigate = useNavigate()
+	const navigateToMovieInfo = () => {
+		navigate(`/movie-info/:id`)
+	}
+
 	return (
 		<motion.div layout className='w-60 sm:w-56 relative'>
-			<div
+			<div				
+				onClick={() => navigateToMovieInfo()}
 				onMouseEnter={() => setActiveBox(true)}
 				onMouseLeave={() => setActiveBox(false)}
-				className='mb-2 cursor-pointer hover:opacity-40  '
+				className='mb-2 cursor-pointer hover:opacity-40 transition'
 			>
 				<img className='rounded-md' src={API_IMG + poster_path} alt='' />
-				{activeBox ? (
+			</div>
+			{activeBox ? (
 					<div
-						className='absolute top-2 left-2 	
-			 p-2 bg-transparent	'
+						className='absolute top-2 left-2 p-2 bg-transparent	flex items-center '
 					>
-						<p className='bg-inherit  text-xl 	 font-black	'>
+						<p className='bg-inherit text-xl font-black	'>
 							{vote_average.toFixed(1)}
 						</p>
-
-						<BsFillBookmarkFill className='absolute top-2 left-44 bg-inherit	' />
+						<BsFillBookmarkFill className='bg-inherit' />
 					</div>
 				) : (
 					''
 				)}
-			</div>
 			<h1 className='text-sm font-semibold'>{title}</h1>
 		</motion.div>
 	)

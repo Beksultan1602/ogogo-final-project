@@ -1,10 +1,11 @@
 import React from 'react'
 import Button from '../components/ui/Button'
 import { BsFillPersonFill } from 'react-icons/bs'
+import { Link } from 'react-router-dom'
 const Header = () => {
 	const headerItem= [
 		'Мой ivi',
-		'Что нового',
+		'Избранное',
 		'Фильмы',
 		'Сериалы',
 		'Мультфильмы',
@@ -13,7 +14,7 @@ const Header = () => {
 
 	return (
 		<div className='flex justify-between items-center pt-4 container mx-auto'>
-			<ul className='flex gap-4'>
+			{/* <ul className='flex gap-4'>
 				{headerItem.map(category => (
 					<li
 						className='font-semibold text-gray-500 hover:text-white transition cursor-pointer'
@@ -23,7 +24,8 @@ const Header = () => {
 						{category}
 					</li>
 				))}
-			</ul>
+			</ul> */}
+			<Link to='/favorites'>Избранное</Link>
 			<div className='flex items-center gap-6'>
 				<Button>Войти или зарегистрироваться</Button>
 				<div className='p-2 border-2 rounded-lg border-slate-500'>

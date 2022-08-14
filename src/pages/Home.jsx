@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Categories from '../components/Categories'
 import MovieBox from '../components/MovieBox'
 
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import Header from '../layouts/Header'
 
@@ -11,7 +12,11 @@ import Pagination from '../components/Pagination/Pagination'
 // redux
 import { useDispatch, useSelector } from 'react-redux'
 import { setCategoryId } from '../redux/slices/filterSlice'
+
+import { useAuth } from '../hooks/use-auth'
+
 const Home = () => {
+	const { isAuth, email } = useAuth()
 	const dispatch = useDispatch()
 	const categoryId = useSelector(state => state.filters.categoryId)
 
@@ -43,8 +48,8 @@ const Home = () => {
 			})
 	}, [sortType, categoryId, currentPage])
 	return (
-		<div>
-			<Header />
+		isAuth ? (
+			<div>
 			<div className='flex justify-between items-center container mx-auto'>
 				<Categories setFiltered={setFiltered} activeGenre={categoryId} setActiveGenre={changeCategory}/>
 				<Sort value={sortType} onChangeSort={i => setSortType(i)}/>
@@ -57,6 +62,10 @@ const Home = () => {
 			</motion.div>
 			<Pagination onChangePage={(number) => setCurrentPage(number)}/>
 		</div>
+		) : (
+			<Navigate to='/login'/>
+		)
+		
 	)
 }
 
