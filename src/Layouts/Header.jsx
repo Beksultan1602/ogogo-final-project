@@ -1,8 +1,9 @@
 import React from 'react'
 import Button from '../components/ui/Button'
 import { BsFillPersonFill } from 'react-icons/bs'
+import Search from '../components/search/Search'
 const Header = () => {
-	const headerItem= [
+	const headerItem = [
 		'Мой ivi',
 		'Что нового',
 		'Фильмы',
@@ -24,10 +25,12 @@ const Header = () => {
 					</li>
 				))}
 			</ul>
+
+			<Search />
 			<div className='flex items-center gap-6'>
 				<Button>Войти или зарегистрироваться</Button>
 				<div className='p-2 border-2 rounded-lg border-slate-500'>
-					<BsFillPersonFill className='fill-slate-500'/>
+					<BsFillPersonFill className='fill-slate-500' />
 				</div>
 			</div>
 		</div>
