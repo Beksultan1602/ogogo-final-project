@@ -18,7 +18,7 @@ const SignUp = () => {
 				}))
 				navigate('/')
 			})
-			.catch(alert('Invalid User'))
+			
 	}
 	return (
 		<Form 
