@@ -16,7 +16,7 @@ const MovieBox = ({ title, poster_path, vote_average }) => {
 	}
 
 	return (
-		<motion.div layout className='w-60 sm:w-56 relative'>
+		<motion.div layout className='w-42 sm:w-60 relative'>
 			<div				
 				onClick={() => navigateToMovieInfo()}
 				onMouseEnter={() => setActiveBox(true)}

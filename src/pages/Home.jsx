@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import Categories from '../components/Categories'
 import MovieBox from '../components/MovieBox'
 
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
-import Header from '../layouts/Header'
+
 
 import { motion } from 'framer-motion'
 import Sort from '../components/Sort'
@@ -16,8 +16,10 @@ import { setCategoryId } from '../redux/slices/filterSlice'
 import { SearchContext } from '../App'
 
 import { useAuth } from '../hooks/use-auth'
+import Carousel from '../components/Carousel/Carousel'
 
 const Home = () => {
+
 	const { isAuth, email } = useAuth()
 	const dispatch = useDispatch()
 	const categoryId = useSelector(state => state.filters.categoryId)
@@ -29,7 +31,7 @@ const Home = () => {
 	const [currentPage, setCurrentPage] = useState(1)
 
 	const [sortType, setSortType] = useState({
-		name: 'Популярности ',
+		name: 'Популярности ↑',
 		sortProperty: 'popularity',
 	})
 
@@ -62,6 +64,7 @@ const Home = () => {
 		.map(movie => <MovieBox key={movie.id} {...movie} />)
 	return isAuth ? (
 		<div>
+			<Carousel filtered={filtered}/>
 			<div className='flex justify-between items-center container mx-auto'>
 				<Categories
 					setFiltered={setFiltered}
@@ -70,16 +73,13 @@ const Home = () => {
 				/>
 				<Sort value={sortType} onChangeSort={i => setSortType(i)} />
 			</div>
-			<motion.div
-				layout
-				className='flex px-4 gap-6 container mx-auto flex-wrap items-start justify-center'
+			
+			<div
+			
+				className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'
 			>
 				{movieItems}
-
-				{/* {filtered.map(movie => (
-					<MovieBox {...movie} key={movie.id} />
-				))} */}
-			</motion.div>
+			</div>
 			<Pagination onChangePage={number => setCurrentPage(number)} />
 		</div>
 	) : (

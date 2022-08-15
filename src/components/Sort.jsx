@@ -3,20 +3,20 @@ const Sort = ({ value, onChangeSort }) => {
 	const [opened, setOpened] = useState(false)
 	const list = [
     {
-      name: "Популярности" ,
+      name: "Популярности ↑" ,
       sortProperty: 'popularity',
 
     },
     {
-      name: 'популярности ⬇️',
+      name: 'Популярности ↓',
       sortProperty: '-popularity',
     },
 		{
-      name: 'рейтингу ⬆️',
+      name: 'рейтингу ↑',
       sortProperty: 'vote_average',
     },
     {
-      name: 'рейтингу ⬇️',
+      name: 'рейтингу ↓',
       sortProperty: '-vote_average',
     },
   ]
@@ -25,13 +25,13 @@ const Sort = ({ value, onChangeSort }) => {
     setOpened(false)
   }
 	return (
-		<div onClick={() => setOpened(!opened)} className='relative p-4 border-2 max-w-xs w-full cursor-pointer'>
+		<div onClick={() => setOpened(!opened)} className='relative py-2 px-4 border-2 rounded-lg max-w-xs w-full cursor-pointer '>
       <div className=''>
         <b className='mr-2'>Сортировать по:</b>
-        <span >{value.name}</span>
+        <span>{value.name}</span>
       </div>
       {opened && (
-      <div className='absolute z-10 p-4 border-2 w-full left-0 top-14'>
+      <div className='absolute z-10 p-4 border-2 w-full rounded-lg left-0 top-10'>
         <ul className='flex flex-col gap-4'>
           {list.map(obj => (
             <li

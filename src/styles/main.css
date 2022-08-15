@@ -4,9 +4,12 @@
 .pink {
 	background: #ea003d;
 }
-.carousel-wrapper {
-	width: 2000px;
+.carousel-item {
+	width: 1000px;
 }
 .main-border {
 	border: 1px solid #ea003d;
+}
+.main-text-color {
+	color: #ea003d;
 }
