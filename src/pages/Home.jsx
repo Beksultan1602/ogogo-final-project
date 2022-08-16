@@ -2,11 +2,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import Categories from '../components/Categories'
 import MovieBox from '../components/MovieBox'
 
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 
 
-
-import { motion } from 'framer-motion'
 import Sort from '../components/Sort'
 import Pagination from '../components/Pagination/Pagination'
 // redux
@@ -17,8 +15,10 @@ import { SearchContext } from '../App'
 
 import { useAuth } from '../hooks/use-auth'
 import Carousel from '../components/Carousel/Carousel'
+import { setCurrentPage } from '../redux/slices/paginateSlice'
 
 const Home = () => {
+	const sortType = useSelector(state => state.filters.sort.sortProperty)
 
 	const { isAuth, email } = useAuth()
 	const dispatch = useDispatch()
@@ -27,21 +27,20 @@ const Home = () => {
 
 	const [loading, setLoading] = useState(true)
 	const [filtered, setFiltered] = useState([])
-	// const [activeGenre, setActiveGenre] = useState(0)
-	const [currentPage, setCurrentPage] = useState(1)
 
-	const [sortType, setSortType] = useState({
-		name: 'Популярности ↑',
-		sortProperty: 'popularity',
-	})
-
+	// const [currentPage, setCurrentPage] = useState(1)
+	const currentPage = useSelector(state => state.paginate.currentPage)
+	const changeCurrentPage = i => {
+		dispatch(setCurrentPage(i))
+		window.scrollTo(0, 75)
+	}
 	const changeCategory = i => {
 		dispatch(setCategoryId(i))
 	}
 
 	useEffect(() => {
-		const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc'
-		const sortBy = sortType.sortProperty.replace('-', '')
+		const order = sortType.includes('-') ? 'asc' : 'desc'
+		const sortBy = sortType.replace('-', '')
 		const genre = categoryId > 0 ? `${categoryId}` : ''
 		// const search = searchValue ? `&search=${searchValue}` : ''
 
@@ -61,17 +60,21 @@ const Home = () => {
 				.replace(/ /g, '')
 				.includes(searchValue.toLowerCase().replace(/ /g, ''))
 		)
-		.map(movie => <MovieBox key={movie.id} {...movie} />)
+		.map(movie => 
+			<Link to={`/movie-info/${movie.id}`}>
+				<MovieBox key={movie.id} {...movie} />
+			</Link>
+			)
 	return isAuth ? (
 		<div>
 			<Carousel filtered={filtered}/>
-			<div className='flex justify-between items-center container mx-auto'>
+			<div className='flex justify-center sm:justify-end lg:justify-between items-center container mx-auto mb-8 gap-6 flex-wrap lg:flex-nowrap'>
 				<Categories
 					setFiltered={setFiltered}
 					activeGenre={categoryId}
 					setActiveGenre={changeCategory}
 				/>
-				<Sort value={sortType} onChangeSort={i => setSortType(i)} />
+				<Sort  />
 			</div>
 			
 			<div
@@ -80,7 +83,7 @@ const Home = () => {
 			>
 				{movieItems}
 			</div>
-			<Pagination onChangePage={number => setCurrentPage(number)} />
+			<Pagination onChangePage={changeCurrentPage} />
 		</div>
 	) : (
 		<Navigate to='/login' />

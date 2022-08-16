@@ -13,7 +13,7 @@ const Header = () => {
 	const { isAuth } = useAuth()
 	const [openProfile, setOpenProfile] = useState(false)
 	return (
-		isAuth ? <div className='flex justify-between items-center pt-4 container mx-auto mb-6'>
+		isAuth ? <div className='flex justify-between items-center pt-4 container mx-auto mb-20'>
 			<Link to='/favorites'>Избранное</Link>
 			<div className='flex items-center gap-6'>
 				<Search />

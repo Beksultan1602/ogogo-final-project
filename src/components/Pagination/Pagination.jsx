@@ -5,13 +5,20 @@ const Pagination = ({ onChangePage }) => {
 	return (
 		<div className={styles.paginationWrapper}>
 			<ReactPaginate
-				breakLabel='...'
-				nextLabel='>'
-				onPageChange={event => onChangePage(event.selected + 1)}
-				pageRangeDisplayed={5}
-				pageCount={100}
-				previousLabel='<'
-				renderOnZeroPageCount={null}
+				// breakLabel='...'
+				// nextLabel='>'
+				// onPageChange={event => onChangePage(event.selected + 1)}
+				// pageRangeDisplayed={3}
+				// pageCount={50}
+				// previousLabel='<'
+				// renderOnZeroPageCount={null} 
+        previousLabel={"<"}
+        nextLabel={">"}
+        pageCount={50}
+        marginPagesDisplayed={0}
+        pageRangeDisplayed={3}
+        onPageChange={event => onChangePage(event.selected + 1)}//handle page change event
+        
 			/>
 		</div>
 	)
