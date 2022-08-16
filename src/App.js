@@ -9,10 +9,8 @@ import Home from './pages/Home'
 export const SearchContext = createContext()
 
 function App() {
-	const [searchValue, setSearchValue] = useState('')
-
 	return (
-		<SearchContext.Provider value={{ searchValue, setSearchValue }}>
+		<div>
 			<Header />
 			<Routes>
 				<Route path='/' element={<Home />} />
@@ -21,7 +19,7 @@ function App() {
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
 			</Routes>
-		</SearchContext.Provider>
+		</div>
 	)
 }
 
