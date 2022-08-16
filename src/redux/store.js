@@ -8,10 +8,10 @@ export const store = configureStore({
 	reducer: {
 		filters,
 		user: userReducer,
-<<<<<<< HEAD
-		paginate
-=======
+
+		paginate,
+
 		search,
->>>>>>> 232a066d8ec1892c1b2e5181268e758769a41af0
+
 	},
 })
