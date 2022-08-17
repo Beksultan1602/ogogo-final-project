@@ -18,7 +18,7 @@ const Search = () => {
 	}
 	return (
 		<div className='flex items-center rounded  py-1 border border-slate-500 		 '>
-			<BsSearch className='pl-1 h-4 w-4 ml-2' />
+			<BsSearch className='pl-1 h-4 w-6 ml-2' />
 			<input
 				className='w-full px-4 h-full outline-none p-2  		'
 				ref={inputRef}
@@ -29,7 +29,7 @@ const Search = () => {
 			{searchValue && (
 				<BsBackspace
 					onClick={() => removeSearch()}
-					className='cursor-pointer mr-2'
+					className='cursor-pointer mr-2 w-6'
 				/>
 			)}
 		</div>

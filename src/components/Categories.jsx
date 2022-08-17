@@ -9,7 +9,7 @@ const Categories = ({setActiveGenre, activeGenre}) => {
 
 	return (
 		
-		<ul className='flex gap-4 overflow-scroll sm:overflow-auto mx-4 sm:mx-0'>
+		<ul className='flex gap-4 overflow-scroll sm:overflow-auto mx-4 sm:mx-0 max-w-2xl xl:max-w-full'>
 			{categoryName.map((category, index) => (
 				<button key={index} className={activeGenre === allGenres[index] ? 'text-sm font-semibold leading-4 rounded-full px-4 py-2 pink whitespace-nowrap' : 'px-4 py-2 hover:bg-pink-700 rounded-full whitespace-nowrap'} onClick={() => setActiveGenre(allGenres[index])}>{category}</button>
 			))}

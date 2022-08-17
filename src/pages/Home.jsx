@@ -48,11 +48,11 @@ const Home = () => {
 		// const search = searchValue ? `&search=${searchValue}` : ''
 
 		fetch(
-			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&limit=10&language=ru&with_genres=${genre}&${sortBy}.gte=2.0&${sortBy}.lte=8.0&sort_by=${sortBy}.${order}`
+			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&${sortBy}.gte=2.0&${sortBy}.lte=8.0&sort_by=${sortBy}.${order}`
 		)
 			.then(res => res.json())
 			.then(data => {
-				setFiltered(data.results.slice(0, 10))
+				setFiltered(data.results)
 				// setLoading(false)
 			})
 	}, [sortType, categoryId, searchValue, currentPage])
@@ -64,7 +64,7 @@ const Home = () => {
 				.includes(searchValue.toLowerCase().replace(/ /g, ''))
 		)
 		.map(movie => 
-			<Link to={`/movie-info/${movie.id}`}>
+			<Link key={movie.id} to={`/movie-info/${movie.id}`}>
 				<MovieBox key={movie.id} {...movie} />
 			</Link>
 			)
@@ -72,7 +72,7 @@ const Home = () => {
 		<div>
 
 			<Carousel filtered={filtered} />
-			<div className='flex justify-between items-center container mx-auto'>
+			<div className='flex justify-center lg:justify-between items-center container mx-auto mb-6 flex-wrap lg:flex-nowrap gap-8 lg:gap-0'>
 
 				<Categories
 					setFiltered={setFiltered}
