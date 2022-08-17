@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
+import Comments from '../components/Comments'
 import { useAuth } from '../hooks/use-auth'
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
 const YOU_PLAYER = 'https://www.youtube.com/watch?v='
@@ -71,6 +72,7 @@ const MovieInfo = () => {
 						)}
 					</div>
 				</div>
+				<Comments />
 			</div>
 		</div>
 		) : <Navigate to='/login'/>		
