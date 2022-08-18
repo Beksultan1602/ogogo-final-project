@@ -13,22 +13,18 @@ const Header = () => {
 	const { isAuth } = useAuth()
 	const [openProfile, setOpenProfile] = useState(false)
 	return (
-		isAuth ? 
 		<div className='flex justify-between items-center pt-4 container mx-auto mb-20'>
 			<Link to='/' className='text-3xl main-text-color font-bold'>Ogogo <span>TV</span></Link>
 			<Link to='/favorites'>Избранное</Link>
 			<div className='flex items-center gap-6'>
 				<Search />
-				{/* <div onClick={() => setOpenProfile(!openProfile)} className='p-2 border-2 rounded-lg border-slate-500'>
-					<BsFillPersonFill className='fill-slate-500' />
-				</div>
-				{openProfile ? 
-					<div className='absolute z-10 border-2 p-4 top-12 right-0'>
-						<button >Выйти</button>
-					</div> : ''} */}
-					<button onClick={() => dispatch(removeUser())}>Выйти</button>
+				{ isAuth 
+				? 	
+				<button onClick={() => dispatch(removeUser())}>Выйти</button> 
+				: 
+				<Link to='/login' className='px-4 py-3 pink rounded-lg'>Войти или зарегистрироваться</Link> }
 			</div>
-		</div> : ''
+		</div> 
 	)
 }
 

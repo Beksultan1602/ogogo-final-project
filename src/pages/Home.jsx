@@ -76,7 +76,7 @@ const Home = () => {
 				
 			</Link>
 			)
-	return isAuth ? (
+	return (
 		<div>
 
 			<Carousel filtered={filtered} />
@@ -96,9 +96,7 @@ const Home = () => {
 			</div>
 			<Pagination onChangePage={changeCurrentPage} />
 		</div>
-	) : (
-		<Navigate to='/login' />
-	)
+	) 
 }
 
 export default Home

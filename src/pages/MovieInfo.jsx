@@ -42,7 +42,7 @@ const MovieInfo = () => {
 	}, [id])
 
 	// console.log(allActors)
-	return isAuth ? (
+	return (
 		<div>
 			<div className='container mx-auto'>
 				<div className='flex justify-between'>
@@ -104,9 +104,7 @@ const MovieInfo = () => {
 				<Comments />
 			</div>
 		</div>
-	) : (
-		<Navigate to='/login' />
-	)
+	) 
 }
 
 export default MovieInfo
