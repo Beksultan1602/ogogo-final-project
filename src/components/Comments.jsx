@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { useGetCommentsQuery, useAddCommentsMutation, useDeleteCommentMutation } from "../redux/api/commentsApi"
 import { MdOutlineCancel } from 'react-icons/md'
+import { useSelector } from "react-redux"
 const Comments = () => {
+	const userName = useSelector(state => state.user.email)
 	const [count, setCount] = useState('')
 	const [newComment, setNewComment] = useState('')
 	const {data = []} = useGetCommentsQuery(count)
@@ -29,11 +31,14 @@ const Comments = () => {
 				<option value="20">20</option>
 				<option value="30">30</option>
 			</select>
-			<ul className="flex flex-col gap-8">
+			<ul className="flex flex-col">
 				{data.map(item => (
-						<div className="flex justify-between items-center">
-							<li>{item.name}</li>
-							<MdOutlineCancel className="cursor-pointer" onClick={() => handleDeleteComment(item.id)} />
+						<div className="mb-4">
+							<h1 className="text-bold text-xl">{userName}</h1>
+							<div className="flex justify-between items-center">
+								<li className="text-gray-500">{item.name}</li>
+								<MdOutlineCancel className="cursor-pointer" onClick={() => handleDeleteComment(item.id)} />
+							</div>
 						</div>
 				))}
 			</ul>

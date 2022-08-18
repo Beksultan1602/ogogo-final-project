@@ -19,6 +19,7 @@ import { useAuth } from '../hooks/use-auth'
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
 
+const searchApi = 'https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=en-US&page=1&include_adult=false'
 const Home = () => {
 
 	const sortType = useSelector(state => state.filters.sort.sortProperty)
@@ -30,7 +31,7 @@ const Home = () => {
 
 	const [loading, setLoading] = useState(true)
 	const [filtered, setFiltered] = useState([])
-
+	const [searched, setSearched] = useState([])
 	// const [currentPage, setCurrentPage] = useState(1)
 	const currentPage = useSelector(state => state.paginate.currentPage)
 	const changeCurrentPage = i => {
@@ -40,12 +41,11 @@ const Home = () => {
 	const changeCategory = i => {
 		dispatch(setCategoryId(i))
 	}
-
 	useEffect(() => {
 		const order = sortType.includes('-') ? 'asc' : 'desc'
 		const sortBy = sortType.replace('-', '')
 		const genre = categoryId > 0 ? `${categoryId}` : ''
-		// const search = searchValue ? `&search=${searchValue}` : ''
+		// const search = searchValue ? `${searchValue}` : ''
 
 		fetch(
 			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&${sortBy}.gte=2.0&${sortBy}.lte=8.0&sort_by=${sortBy}.${order}`
@@ -55,7 +55,14 @@ const Home = () => {
 				setFiltered(data.results)
 				// setLoading(false)
 			})
-	}, [sortType, categoryId, searchValue, currentPage])
+	}, [sortType, categoryId, currentPage])
+	useEffect(() => {
+			fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`)
+			.then(res => res.json())
+			.then(data => {
+				setSearched(data.results)
+			})
+		}, [searchValue])
 	const movieItems = filtered
 		.filter(item =>
 			item.title
@@ -66,6 +73,7 @@ const Home = () => {
 		.map(movie => 
 			<Link key={movie.id} to={`/movie-info/${movie.id}`}>
 				<MovieBox key={movie.id} {...movie} />
+				
 			</Link>
 			)
 	return isAuth ? (
@@ -84,6 +92,7 @@ const Home = () => {
 
 			<div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
 				{movieItems}
+				
 			</div>
 			<Pagination onChangePage={changeCurrentPage} />
 		</div>
