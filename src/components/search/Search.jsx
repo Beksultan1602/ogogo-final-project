@@ -1,18 +1,29 @@
-import { useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { BsBackspace, BsSearch } from 'react-icons/bs'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { debounce } from 'lodash'
+
 import {
 	setSearchValue,
 	removeSearchValue,
 } from '../../redux/slices/searchSlice'
 const Search = () => {
+	const [value, setValue] = useState('')
 	const dispatch = useDispatch()
-	const searchValue = useSelector(state => state.search.searchValue)
 	const inputRef = useRef()
+
+	const updateSearchValue = useCallback(
+		debounce(str => {
+			dispatch(setSearchValue(str))
+		}, 1000),
+		[]
+	)
 	const changeInputValue = event => {
-		dispatch(setSearchValue(event.target.value))
+		setValue(event.target.value)
+		updateSearchValue(event.target.value)
 	}
 	const removeSearch = () => {
+		setValue('')
 		dispatch(removeSearchValue())
 		inputRef.current.focus()
 	}
@@ -23,10 +34,10 @@ const Search = () => {
 				className='w-full px-4 h-full outline-none p-2  		'
 				ref={inputRef}
 				placeholder='Поиск ...'
-				value={searchValue}
+				value={value}
 				onChange={changeInputValue}
 			/>
-			{searchValue && (
+			{value && (
 				<BsBackspace
 					onClick={() => removeSearch()}
 					className='cursor-pointer mr-2'
