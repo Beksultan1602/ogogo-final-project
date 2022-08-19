@@ -44,11 +44,16 @@ const MovieInfo = () => {
 	// console.log(allActors)
 	return (
 		<div>
-			<div className='container mx-auto'>
-				<div className='flex justify-between'>
+			<div className='container sm:mx-auto px-2'>
+				<div className='flex justify-between xl:gap-0 gap-6 flex-wrap lg:flex-nowrap '>
 					<img
-						className='max-w-sm rounded-lg h-1/2'
+						className='max-w-sm rounded-lg h-1/2 hidden lg:block'
 						src={API_IMG + movieInfo.poster_path}
+						alt=''
+					/>
+					<img
+						className='rounded-lg w-1/2 lg:hidden block'
+						src={API_IMG + movieInfo.backdrop_path}
 						alt=''
 					/>
 					<div className='flex flex-col gap-2 max-w-3xl'>
@@ -65,10 +70,10 @@ const MovieInfo = () => {
 							Длительность: {movieInfo.runtime}мин.
 						</p>
 						<div>
-							<h2 className='text-gray-400 mb-2'>Актерский состав:</h2>
-							<ul className='flex justify-between '>
+							<h2 className='text-gray-400 mb-2'>Лучшие актеры:</h2>
+							<ul className='flex gap-4 items-start flex-wrap mx-auto'>
 								{actors.map(actor => (
-									<li className='flex flex-col'>
+									<li className='flex flex-col items-start w-32'>
 										<img
 											className='w-24 rounded-lg'
 											src={API_IMG + actor.profile_path}
@@ -79,17 +84,15 @@ const MovieInfo = () => {
 								))}
 							</ul>
 						</div>
-						<div className=' mt-16 '>
-							<Button>
-								В избранное
-								<BsBookmark className='inline bg-inherit ml-4' />
-							</Button>
-						</div>
+						<button className='text-sm font-semibold rounded-lg py-2 px-4 pink max-w-sm '>
+							Добавить в избранное
+							<BsBookmark className='inline bg-inherit ml-4' />
+						</button>
 					</div>
 				</div>
 				<div className='mt-8'>
 					<h2 className='text-2xl font-bold mb-4'>Рекомендации: </h2>
-					<div className='flex justify-between '>
+					<div className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
 						{recs.map(rec => (
 							<Link to={`/movie-info/${rec.id}`}>
 								<img

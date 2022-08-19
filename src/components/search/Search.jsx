@@ -28,10 +28,10 @@ const Search = () => {
 		inputRef.current.focus()
 	}
 	return (
-		<div className='flex items-center rounded  py-1 border border-slate-500 		 '>
+		<div className='flex items-center rounded py-1 border border-slate-500 mt-6 md:mt-0'>
 			<BsSearch className='pl-1 h-4 w-6 ml-2' />
 			<input
-				className='w-full px-4 h-full outline-none p-2  		'
+				className='w-full px-4 outline-none p-2  		'
 				ref={inputRef}
 				placeholder='Поиск ...'
 				value={value}

@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { BiExit, BiSearchAlt2 } from 'react-icons/bi'
 import { BsBookmark } from 'react-icons/bs'
 import { AiOutlineHome } from 'react-icons/ai'
+import { GiCancel } from 'react-icons/gi'
 const Header = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -19,21 +20,23 @@ const Header = () => {
 	const [searchActive, setSearchActive] = useState(false)
 	return (
 		<div className='flex justify-between items-center pt-4 container mx-auto mb-20'>
-			<Link to='/' className='text-3xl main-text-color font-bold'>Ogogo <span>TV</span></Link>
-			<div className='hidden md:flex items-center gap-6'>
+			<Link to='/' className='text-3xl main-text-color font-bold ml-2 sm:ml-0'>Ogogo <span>TV</span></Link>
+			<div className='hidden lg:flex items-center gap-6'>
 				<Link to='/favorites'>Избранное</Link>
 
 				<Search />
-				{ isAuth 
+				
+			</div>
+			{ isAuth 
 				? 	
 				<button onClick={() => dispatch(removeUser())}>Выйти</button> 
 				: 
-				<Link to='/login' className='px-4 py-3 pink rounded-lg'>Войти или зарегистрироваться</Link> }
-			</div>
-			{searchActive ? <div className='w-full h-screen'>
+				<Link to='/login' className='px-2 sm:px-4 py-3 pink rounded-lg mr-2 sm:mr-0 whitespace-nowrap'>Войти или зарегистрироваться</Link> }
+			{searchActive ? <div className='transition px-2 container mx-auto w-full flex justify-between items-center h-1/4 fixed main-bg right-0 left-0 z-10'>
 				<Search />
+				<GiCancel onClick={() => setSearchActive(false)} className='mt-6 cursor-pointer h-8 w-8 bg-transparent'/>
 			</div> : ''}
-			<div className='md:hidden flex fixed bottom-0 py-4 w-full z-10 justify-evenly items-center left-0 bg-purple-900/[0.7]'>
+			<div className='lg:hidden flex fixed bottom-0 py-4 w-full z-10 justify-evenly items-center left-0 bg-purple-900/[0.7]'>
 				<AiOutlineHome onClick={() => navigate('/')} className='cursor-pointer h-10 w-10 bg-transparent'/>
 				<BsBookmark className='cursor-pointer h-10 w-10 bg-transparent'/>
 				<BiSearchAlt2 onClick={() => setSearchActive(true)} className='cursor-pointer h-10 w-10 bg-transparent'/>
