@@ -56,13 +56,17 @@ const Home = () => {
 				// setLoading(false)
 			})
 	}, [sortType, categoryId, currentPage])
+
+	// нижний useEffect сортирует как надо, по всем страницам, если засовывать search и query в запрос сверху, запрос ломается, не понятно как объеденить их
 	useEffect(() => {
 			fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`)
 			.then(res => res.json())
 			.then(data => {
-				setSearched(data.results)
+				console.log(data.results)
 			})
 		}, [searchValue])
+
+
 	const movieItems = filtered
 		.filter(item =>
 			item.title

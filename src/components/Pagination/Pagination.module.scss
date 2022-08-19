@@ -2,6 +2,9 @@
 	margin-top: 2.5rem;
 	display: flex;
 	justify-content: space-around;
+	@media screen and (max-width: 768px) {
+		margin-bottom: 100px;
+	}
 	ul {
 		display: flex;
 		gap: 0.8rem;
