@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux'
 import { setUser } from '../redux/slices/userSlice'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
+
 import Form from '../components/Form'
 const Login = () => {
 	const dispatch = useDispatch()
-  const navigate = useNavigate()
+
 
 	const handleLogin = (email, password) => {
 		const auth = getAuth()
@@ -16,7 +16,7 @@ const Login = () => {
 					id: user.uid,
 					token: user.accessToken
 				}))
-				navigate("/")
+
 			})
 			.catch((error) => {
 				alert(error.message)
@@ -24,6 +24,7 @@ const Login = () => {
 	}
 	return (
 		<Form 
+
 			title='Войти'
 			handleClick={handleLogin}
 		/>

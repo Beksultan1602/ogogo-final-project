@@ -4,6 +4,9 @@ import { RiLockPasswordFill } from 'react-icons/ri'
 const Form = ({title, handleClick}) => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+
+
 	return (
 		<div className="flex flex-col items-center justify-center gap-8 max-w-2xl mx-auto py-8">
 			<div className="w-1/2 flex justify-between items-center border-b border-slate-600 ">
