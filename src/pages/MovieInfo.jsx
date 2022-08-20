@@ -70,10 +70,13 @@ const MovieInfo = () => {
 					<div className='flex flex-col gap-2 max-w-3xl'>
 						<div className='flex justify-between items-center sm:flex-nowrap flex-wrap gap-2 sm:gap-0'>
 							<h1 className='text-4xl font-bold'>{movieInfo.title}</h1>
+							{isAuth 
+							? 
 							<button onClick={handleAddFavorite} className='whitespace-nowrap text-sm font-semibold rounded-lg py-2 px-4 pink max-w-sm '>
 								Добавить в избранное
 								<BsBookmark className='inline bg-inherit ml-4' />
-							</button>
+							</button> 
+							: null}
 						</div>
 						<p className='text-gray-400'>{movieInfo.overview}</p>
 						<p className='text-gray-400'>Статус: {movieInfo.status}</p>

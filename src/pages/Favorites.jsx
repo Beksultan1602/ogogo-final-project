@@ -1,21 +1,24 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Comments from '../components/Comments'
+import { useAuth } from '../hooks/use-auth'
 import { useGetFavoritesQuery, useDeleteFavoritesMutation } from '../redux/api/favoritesApi'
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
 const Favorites = () => {
-
+	const {isAuth, email} = useAuth()
+	const navigate = useNavigate()
 	const {data = [], isLoading} = useGetFavoritesQuery()
 	const [deleteFavorite] = useDeleteFavoritesMutation()
 	const handleDeleteFavorite = async (id) => {
 		await deleteFavorite(id).unwrap()
 	}
 	return (
-		<div>
+		<>
+			{isAuth ? <div>
 			<div className="container mx-auto">
 				<div>
 					<h1 className='text-3xl font-bold mb-6'>В избранном:</h1>
-					<div className='grid grid-cols-6 gap-6'>
+					<div className='grid mx-2 sm:mx-0 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6'>
 						{data.map(item => (
 							<div className='relative'>
 								<Link to={`/movie-info/${item.movieId}`} 
@@ -36,7 +39,8 @@ const Favorites = () => {
 						{/* <Comments /> */}
 				</div>
 			</div>
-		</div>
+		</div> : navigate('/')}
+		</>
 	)
 }
 
