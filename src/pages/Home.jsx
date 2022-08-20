@@ -18,6 +18,7 @@ import { SearchContext } from '../App'
 import { useAuth } from '../hooks/use-auth'
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
+import Loader from '../components/ui/Loader'
 
 const searchApi = 'https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=en-US&page=1&include_adult=false'
 const Home = () => {
@@ -48,24 +49,24 @@ const Home = () => {
 		// const search = searchValue ? `${searchValue}` : ''
 
 		fetch(
-			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&${sortBy}.gte=2.0&${sortBy}.lte=8.0&sort_by=${sortBy}.${order}`
+			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
 		)
 			.then(res => res.json())
 			.then(data => {
 				setFiltered(data.results)
-				// setLoading(false)
+				console.log(data.results);
+				setLoading(false)
 			})
-	}, [sortType, categoryId, currentPage])
+	}, [sortType, categoryId, currentPage, searchValue])
 
 	// нижний useEffect сортирует как надо, по всем страницам, если засовывать search и query в запрос сверху, запрос ломается, не понятно как объеденить их
-	useEffect(() => {
-			fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`)
-			.then(res => res.json())
-			.then(data => {
-				console.log(data.results)
-			})
-		}, [searchValue])
-
+	// useEffect(() => {
+	// 		fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`)
+	// 		.then(res => res.json())
+	// 		.then(data => {
+	// 			setSearched(data.results)
+	// 		})
+	// 	}, [searchValue])
 
 	const movieItems = filtered
 		.filter(item =>
@@ -93,11 +94,10 @@ const Home = () => {
 				/>
 				<Sort  />
 			</div>
-
-			<div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
+			
+			{loading ? (<Loader />) : <div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
 				{movieItems}
-				
-			</div>
+			</div>}
 			<Pagination onChangePage={changeCurrentPage} />
 		</div>
 	) 

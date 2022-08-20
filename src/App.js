@@ -6,6 +6,7 @@ import MovieInfo from './pages/MovieInfo'
 import Register from './pages/RegisterPage'
 import Home from './pages/Home'
 
+
 function App() {
 	return (
 		<div>
@@ -16,6 +17,7 @@ function App() {
 				<Route path='/favorites' element={<Favorites />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
+
 			</Routes>
 		</div>
 	)

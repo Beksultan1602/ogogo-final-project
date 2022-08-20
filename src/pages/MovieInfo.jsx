@@ -37,7 +37,6 @@ const MovieInfo = () => {
 			.then(res => res.json())
 			.then(data => {
 				setRecs(data.results.slice(0, 7))
-				console.log(data.results)
 			})
 	}, [id])
 
@@ -72,8 +71,8 @@ const MovieInfo = () => {
 						<div>
 							<h2 className='text-gray-400 mb-2'>Лучшие актеры:</h2>
 							<ul className='flex gap-4 items-start flex-wrap mx-auto'>
-								{actors.map(actor => (
-									<li className='flex flex-col items-start w-32'>
+								{actors.map((actor, index) => (
+									<li className='flex flex-col items-start w-32' key={index}>
 										<img
 											className='w-24 rounded-lg'
 											src={API_IMG + actor.profile_path}
