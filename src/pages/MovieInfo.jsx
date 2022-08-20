@@ -55,8 +55,17 @@ const MovieInfo = () => {
 						<h1 className='text-4xl font-bold'>{movieInfo.title}</h1>
 						<p className='text-gray-400'>{movieInfo.overview}</p>
 						<p className='text-gray-400'>Статус: {movieInfo.status}</p>
-						<div>
-							<p className='text-gray-400'>Рейтинг: {movieInfo.vote_average}</p>
+						<div className='flex items-center'>
+							<p className='text-gray-400 mr-2'>Рейтинг:</p>
+							<p
+								className={
+									movieInfo.vote_average < 6
+										? ' flex items-center justify-center font-black		 text-gray-50 h-16 w-16 bg-yellow-500 rounded-lg		 	'
+										: ' flex items-center justify-center font-black		 text-gray-50 h-16 w-16 bg-lime-700 rounded-lg			'
+								}
+							>
+								{movieInfo.vote_average}
+							</p>
 						</div>
 						<p className='text-gray-400'>
 							Дата выпуска: {movieInfo.release_date}
@@ -68,7 +77,7 @@ const MovieInfo = () => {
 							<h2 className='text-gray-400 mb-2'>Актерский состав:</h2>
 							<ul className='flex justify-between '>
 								{actors.map(actor => (
-									<li className='flex flex-col'>
+									<li className='flex flex-col justify-center items-center font-bold '>
 										<img
 											className='w-24 rounded-lg'
 											src={API_IMG + actor.profile_path}
@@ -104,7 +113,7 @@ const MovieInfo = () => {
 				<Comments />
 			</div>
 		</div>
-	) 
+	)
 }
 
 export default MovieInfo

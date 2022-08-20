@@ -5,6 +5,7 @@ import Login from './pages/LoginPage'
 import MovieInfo from './pages/MovieInfo'
 import Register from './pages/RegisterPage'
 import Home from './pages/Home'
+import NotFound from './pages/NotFound'
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 				<Route path='/favorites' element={<Favorites />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
+				<Route path='/*' element={<NotFound />} />
 			</Routes>
 		</div>
 	)
