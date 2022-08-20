@@ -4,8 +4,20 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import Comments from '../components/Comments'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/use-auth'
+import { motion } from 'framer-motion'
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
 const YOU_PLAYER = 'https://www.youtube.com/watch?v='
+const imageAnimation = {
+	hidden: {
+		y: 100,
+		opacity: 0
+	},
+	visible: custom => ({
+		y: 0,
+		opacity: 1,
+		transition: { delay: custom * 0.2 }
+	})
+}
 const MovieInfo = () => {
 	const { isAuth, email } = useAuth()
 	const { id } = useParams()
@@ -89,9 +101,13 @@ const MovieInfo = () => {
 						</button>
 					</div>
 				</div>
-				<div className='mt-8'>
-					<h2 className='text-2xl font-bold mb-4'>Рекомендации: </h2>
-					<div className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
+				<motion.div 
+					initial='hidden'
+					whileInView='visible'
+					viewport={{ amount: 0.2 }}				
+					className='mt-8'>
+					<motion.h2 custom={1} variants={imageAnimation} className='text-2xl font-bold mb-4'>Рекомендации: </motion.h2>
+					<motion.div custom={2} variants={imageAnimation} className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
 						{recs.map(rec => (
 							<Link to={`/movie-info/${rec.id}`}>
 								<img
@@ -101,8 +117,8 @@ const MovieInfo = () => {
 								/>
 							</Link>
 						))}
-					</div>
-				</div>
+					</motion.div>
+				</motion.div>
 				<Comments />
 			</div>
 		</div>
