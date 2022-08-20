@@ -9,11 +9,11 @@ const Form = ({title, handleClick}) => {
 
 	return (
 		<div className="flex flex-col items-center justify-center gap-8 max-w-2xl mx-auto py-8">
-			<div className="w-1/2 flex justify-between items-center border-b border-slate-600 ">
+			<div className="w-3/4 sm:w-1/2 flex justify-between items-center border-b border-slate-600 ">
 				<AiOutlineMail />
 				<input className="p-4 w-full outline-none" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Электронный адрес'/>
 			</div>
-			<div className="w-1/2 flex justify-between items-center border-b border-slate-600 ">
+			<div className="w-3/4 sm:w-1/2 flex justify-between items-center border-b border-slate-600 ">
 				<RiLockPasswordFill />
 				<input className="p-4 w-full outline-none" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Пароль'/>
 			</div>

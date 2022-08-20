@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import Button from '../components/ui/Button'
-import { BsFillPersonFill } from 'react-icons/bs'
 
 
 import { Link, useNavigate } from 'react-router-dom'
@@ -22,7 +20,7 @@ const Header = () => {
 		<div className='flex justify-between items-center pt-4 container mx-auto mb-20'>
 			<Link to='/' className='text-3xl main-text-color font-bold ml-2 sm:ml-0'>Ogogo <span>TV</span></Link>
 			<div className='hidden lg:flex items-center gap-6'>
-				<Link to='/favorites'>Избранное</Link>
+				<Link to='/favorites'>Избранное</Link> 
 
 				<Search />
 				
@@ -38,7 +36,7 @@ const Header = () => {
 			</div> : ''}
 			<div className='lg:hidden flex fixed bottom-0 py-4 w-full z-10 justify-evenly items-center left-0 bg-purple-900/[0.7]'>
 				<AiOutlineHome onClick={() => navigate('/')} className='cursor-pointer h-10 w-10 bg-transparent'/>
-				<BsBookmark className='cursor-pointer h-10 w-10 bg-transparent'/>
+				<BsBookmark onClick={() => navigate('/favorites')} className='cursor-pointer h-10 w-10 bg-transparent'/>
 				<BiSearchAlt2 onClick={() => setSearchActive(true)} className='cursor-pointer h-10 w-10 bg-transparent'/>
 				<BiExit className='cursor-pointer h-10 w-10 bg-transparent' onClick={() => dispatch(removeUser())}/>
 			</div>

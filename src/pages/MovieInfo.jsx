@@ -4,21 +4,21 @@ import { Link, Navigate, useParams } from 'react-router-dom'
 import Comments from '../components/Comments'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/use-auth'
-import { motion } from 'framer-motion'
+import { useAddFavoritesMutation } from '../redux/api/favoritesApi'
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
 const YOU_PLAYER = 'https://www.youtube.com/watch?v='
-const imageAnimation = {
-	hidden: {
-		y: 100,
-		opacity: 0
-	},
-	visible: custom => ({
-		y: 0,
-		opacity: 1,
-		transition: { delay: custom * 0.2 }
-	})
-}
+
 const MovieInfo = () => {
+	const [addFavorite, {isError}] = useAddFavoritesMutation()
+	const handleAddFavorite = async () => {
+
+			await addFavorite({
+				title: movieInfo.title,
+				backdrop_path: movieInfo.poster_path,
+				movieId: movieInfo.id
+			}).unwrap()
+
+	}
 	const { isAuth, email } = useAuth()
 	const { id } = useParams()
 	const [movieInfo, setMovieInfo] = useState([])
@@ -63,12 +63,18 @@ const MovieInfo = () => {
 						alt=''
 					/>
 					<img
-						className='rounded-lg w-1/2 lg:hidden block'
+						className='rounded-lg w-full sm:w-1/2 lg:hidden block'
 						src={API_IMG + movieInfo.backdrop_path}
 						alt=''
 					/>
 					<div className='flex flex-col gap-2 max-w-3xl'>
-						<h1 className='text-4xl font-bold'>{movieInfo.title}</h1>
+						<div className='flex justify-between items-center sm:flex-nowrap flex-wrap gap-2 sm:gap-0'>
+							<h1 className='text-4xl font-bold'>{movieInfo.title}</h1>
+							<button onClick={handleAddFavorite} className='whitespace-nowrap text-sm font-semibold rounded-lg py-2 px-4 pink max-w-sm '>
+								Добавить в избранное
+								<BsBookmark className='inline bg-inherit ml-4' />
+							</button>
+						</div>
 						<p className='text-gray-400'>{movieInfo.overview}</p>
 						<p className='text-gray-400'>Статус: {movieInfo.status}</p>
 						<div className='flex items-center'>
@@ -104,21 +110,16 @@ const MovieInfo = () => {
 								))}
 							</ul>
 						</div>
-						<button className='text-sm font-semibold rounded-lg py-2 px-4 pink max-w-sm '>
-							Добавить в избранное
-							<BsBookmark className='inline bg-inherit ml-4' />
-						</button>
+						
 					</div>
 				</div>
-				<motion.div 
-					initial='hidden'
-					whileInView='visible'
-					viewport={{ amount: 0.2 }}				
+				<div 
+	
 					className='mt-8'>
-					<motion.h2 custom={1} variants={imageAnimation} className='text-2xl font-bold mb-4'>Рекомендации: </motion.h2>
-					<motion.div custom={2} variants={imageAnimation} className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
+					<h2 className='text-2xl text-center sm:text-left font-bold mb-4'>Рекомендации: </h2>
+					<div className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
 						{recs.map(rec => (
-							<Link to={`/movie-info/${rec.id}`}>
+							<Link key={rec.id} to={`/movie-info/${rec.id}`}>
 								<img
 									className='w-44 rounded-lg'
 									src={API_IMG + rec.poster_path}
@@ -126,8 +127,8 @@ const MovieInfo = () => {
 								/>
 							</Link>
 						))}
-					</motion.div>
-				</motion.div>
+					</div>
+				</div>
 				<Comments />
 			</div>
 		</div>

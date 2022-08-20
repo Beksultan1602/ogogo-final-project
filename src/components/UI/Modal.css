@@ -29,3 +29,14 @@
 .modal__content.active {
 	transform: scale(1);
 }
+
+@media screen and (max-width: 768px) {
+	.modal__content {
+		width: 80vw;
+	}
+}
+@media screen and (max-width: 640px) {
+	.modal__content {
+		width: 100vw;
+	}
+}
