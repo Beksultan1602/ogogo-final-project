@@ -3,8 +3,8 @@ import { BsFacebook, BsTelegram, BsTwitter, BsYoutube } from 'react-icons/bs'
 
 const Footer = () => {
 	return (
-		<div className='flex items-center justify-between container mx-auto mt-10'>
-			<p>© 2022 ООО «JS GROUP»</p>
+		<div className='flex items-center justify-between container mx-auto py-12 lg:flex hidden'>
+			<p>© 2022 «JS GROUP»</p>
 			<div className='flex justify-end gap-7  '>
 				<a href='https://www.youtube.com/ ' rel='noreferrer' target='_blank'>
 					<BsYoutube className='h-8 w-8' />
