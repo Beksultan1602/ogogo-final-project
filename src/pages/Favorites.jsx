@@ -20,7 +20,7 @@ const Favorites = () => {
 					<h1 className='text-3xl font-bold mb-6'>В избранном:</h1>
 					<div className='grid mx-2 sm:mx-0 grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6'>
 						{data.map(item => (
-							<div className='relative'>
+							<div key={item.id} className='relative'>
 								<Link to={`/movie-info/${item.movieId}`} 
 									key={item.id} 
 									className='mb-2 relative'

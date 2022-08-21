@@ -4,6 +4,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 import Form from '../components/Form'
 import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert'
 const Login = () => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
@@ -20,7 +21,7 @@ const Login = () => {
 				navigate('/')
 			})
 			.catch((error) => {
-				alert(error.message)
+				 swal("Oops! Something went wrong.", error.message);
 			})
 	}
 	return (

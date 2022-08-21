@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Search from '../components/search/Search'
 import { useAuth } from '../hooks/use-auth'
 import { removeUser } from '../redux/slices/userSlice'
@@ -11,7 +11,6 @@ import { BsBookmark } from 'react-icons/bs'
 import { AiOutlineHome } from 'react-icons/ai'
 import { GiCancel } from 'react-icons/gi'
 const Header = () => {
-	const navigate = useNavigate()
 	const dispatch = useDispatch()
 	const { isAuth } = useAuth()
 	const [openProfile, setOpenProfile] = useState(false)
@@ -49,8 +48,10 @@ const Header = () => {
 				<GiCancel onClick={() => setSearchActive(false)} className='mt-6 cursor-pointer h-8 w-8 bg-transparent'/>
 			</div> : ''}
 			<div className='lg:hidden flex fixed bottom-0 py-4 w-full z-10 justify-evenly items-center left-0 bg-purple-900/[0.7]'>
-				<AiOutlineHome onClick={() => navigate('/')} className='cursor-pointer h-10 w-10 bg-transparent'/>
-				<BsBookmark onClick={() => navigate('/favorites')} className='cursor-pointer h-10 w-10 bg-transparent'/>
+				<Link className='bg-transparent' to='/'>
+					<AiOutlineHome className='cursor-pointer h-10 w-10 bg-transparent'/>
+				</Link>
+				{isAuth ? (<Link className='bg-transparent' to='/favorites'><BsBookmark className='cursor-pointer h-10 w-10 bg-transparent'/></Link>) : <Link className='bg-transparent' to='/'><BsBookmark className='cursor-pointer h-10 w-10 bg-transparent'/></Link>}
 				<BiSearchAlt2 onClick={() => setSearchActive(true)} className='cursor-pointer h-10 w-10 bg-transparent'/>
 				<BiExit className='cursor-pointer h-10 w-10 bg-transparent' onClick={() => dispatch(removeUser())}/>
 			</div>
