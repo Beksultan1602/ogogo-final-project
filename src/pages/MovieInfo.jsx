@@ -11,24 +11,22 @@ const YOU_PLAYER = 'https://www.youtube.com/watch?v='
 const textAnimation = {
 	hidden: {
 		x: -100,
-		opacity: 0
+		opacity: 0,
 	},
 	visible: custom => ({
 		x: 0,
 		opacity: 1,
-		transition: {delay: custom * 0.2}
-	})
+		transition: { delay: custom * 0.2 },
+	}),
 }
 const MovieInfo = () => {
-	const [addFavorite, {isError}] = useAddFavoritesMutation()
+	const [addFavorite, { isError }] = useAddFavoritesMutation()
 	const handleAddFavorite = async () => {
-
-			await addFavorite({
-				title: movieInfo.title,
-				backdrop_path: movieInfo.poster_path,
-				movieId: movieInfo.id
-			}).unwrap()
-
+		await addFavorite({
+			title: movieInfo.title,
+			backdrop_path: movieInfo.poster_path,
+			movieId: movieInfo.id,
+		}).unwrap()
 	}
 	const { isAuth, email } = useAuth()
 	const { id } = useParams()
@@ -64,14 +62,15 @@ const MovieInfo = () => {
 			})
 	}, [id])
 	useEffect(() => {
-		fetch(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=d8888bf513595a2de41979608397fb02&language=en-US`)
-		.then(res => res.json())
-		.then(data => {
-			setTeaser(data.results.slice(0, 2))
-			
-		})
+		fetch(
+			`https://api.themoviedb.org/3/movie/${id}/videos?api_key=d8888bf513595a2de41979608397fb02&language=en-US`
+		)
+			.then(res => res.json())
+			.then(data => {
+				setTeaser(data.results.slice(0, 2))
+			})
 	}, [id])
-	console.log(movieInfo);
+	console.log(movieInfo)
 	// console.log(allActors)
 	return (
 		<div>
@@ -90,13 +89,15 @@ const MovieInfo = () => {
 					<div className='flex flex-col gap-2 max-w-3xl'>
 						<div className='flex justify-between items-center sm:flex-nowrap flex-wrap gap-2 sm:gap-0'>
 							<h1 className='text-4xl font-bold'>{movieInfo.title}</h1>
-							{isAuth 
-							? 
-							<button onClick={handleAddFavorite} className='whitespace-nowrap text-sm font-semibold rounded-lg py-2 px-4 pink max-w-sm '>
-								Добавить в избранное
-								<BsBookmark className='inline bg-inherit ml-4' />
-							</button> 
-							: null}
+							{isAuth ? (
+								<button
+									onClick={handleAddFavorite}
+									className='whitespace-nowrap text-sm font-semibold rounded-lg py-2 px-4 pink max-w-sm '
+								>
+									Добавить в избранное
+									<BsBookmark className='inline bg-inherit ml-4' />
+								</button>
+							) : null}
 						</div>
 						<p className='text-gray-400'>{movieInfo.overview}</p>
 						<p className='text-gray-400'>Статус: {movieInfo.status}</p>
@@ -119,54 +120,110 @@ const MovieInfo = () => {
 							Длительность: {movieInfo.runtime}мин.
 						</p>
 						<div>
-							<h1>Жанры:</h1>
+							<h1 className='text-gray-400'>Жанры:</h1>
 							{/* <ul>
 								{movieInfo.map(genre => (
 									<li>{genre}</li>
 								))}
 							</ul> */}
+							{/* {movieInfo.genres} */}
+							<div className='flex '>
+								{movieInfo.genres &&
+									movieInfo.genres.slice(0, 5).map((genre, i) => (
+										<ul>
+											<li
+												className=' text-center p-2 w-40 font-semibold border border-slate-300 rounded-full my-2.5 mr-2.5 outline-none'
+												key={i}
+											>
+												{genre.name}
+											</li>
+										</ul>
+									))}
+							</div>
 						</div>
 						{console.log(movieInfo)}
 					</div>
 				</div>
-				<motion.div 
+				<motion.div
 					initial='hidden'
 					whileInView='visible'
 					viewport={{ amount: 0.2 }}
-					className=' mt-8'>
-					<motion.h1 custom={1} variants={textAnimation} className='text-2xl text-center sm:text-left font-bold mb-4'>Трейлеры:</motion.h1>
-					<motion.div custom={2} variants={textAnimation} className='flex gap-8 items-center flex-wrap lg:flex-nowrap'>
+					className=' mt-8'
+				>
+					<motion.h1
+						custom={1}
+						variants={textAnimation}
+						className='text-2xl text-center sm:text-left font-bold mb-4'
+					>
+						Трейлеры:
+					</motion.h1>
+					<motion.div
+						custom={2}
+						variants={textAnimation}
+						className='flex gap-8 items-center flex-wrap lg:flex-nowrap'
+					>
 						{teaser.map(teas => (
-							<iframe key={teas.id} width="560" height="300" src={'https://www.youtube.com/embed/' + teas.key} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+							<iframe
+								key={teas.id}
+								width='560'
+								height='300'
+								src={'https://www.youtube.com/embed/' + teas.key}
+								title='YouTube video player'
+								frameBorder='0'
+								allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+								allowFullScreen
+							></iframe>
 						))}
 					</motion.div>
 				</motion.div>
-				<motion.div 
+				<motion.div
 					initial='hidden'
 					whileInView='visible'
 					viewport={{ amount: 0.2 }}
-					className='mt-8'>
-					<motion.h2 custom={1} variants={textAnimation} className='text-2xl text-center sm:text-left font-bold mb-4'>Лучшие актеры: </motion.h2>
-					<motion.ul custom={2} variants={textAnimation} className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
-								{actors.map((actor, index) => (
-									<li className='flex flex-col items-start' key={index}>
-										<img
-											className='rounded-lg w-44'
-											src={API_IMG + actor.profile_path}
-											alt=''
-										/>
-										<p className='text-gray-400'>{actor.name}</p>
-									</li>
-								))}
+					className='mt-8'
+				>
+					<motion.h2
+						custom={1}
+						variants={textAnimation}
+						className='text-2xl text-center sm:text-left font-bold mb-4'
+					>
+						Лучшие актеры:{' '}
+					</motion.h2>
+					<motion.ul
+						custom={2}
+						variants={textAnimation}
+						className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'
+					>
+						{actors.map((actor, index) => (
+							<li className='flex flex-col items-start' key={index}>
+								<img
+									className='rounded-lg w-44'
+									src={API_IMG + actor.profile_path}
+									alt=''
+								/>
+								<p className='text-gray-400'>{actor.name}</p>
+							</li>
+						))}
 					</motion.ul>
 				</motion.div>
-				<motion.div 
+				<motion.div
 					initial='hidden'
 					whileInView='visible'
 					viewport={{ amount: 0.2 }}
-					className='mt-8'>
-					<motion.h2 custom={1} variants={textAnimation} className='text-2xl text-center sm:text-left font-bold mb-4'>Рекомендации: </motion.h2>
-					<motion.div custom={2} variants={textAnimation} className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'>
+					className='mt-8'
+				>
+					<motion.h2
+						custom={1}
+						variants={textAnimation}
+						className='text-2xl text-center sm:text-left font-bold mb-4'
+					>
+						Рекомендации:{' '}
+					</motion.h2>
+					<motion.div
+						custom={2}
+						variants={textAnimation}
+						className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'
+					>
 						{recs.map(rec => (
 							<Link key={rec.id} to={`/movie-info/${rec.id}`}>
 								<img
@@ -178,9 +235,8 @@ const MovieInfo = () => {
 						))}
 					</motion.div>
 				</motion.div>
-				
-				<Comments />
 
+				<Comments />
 			</div>
 		</div>
 	)
