@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setUser } from '../redux/slices/userSlice'
 import Form from '../components/Form'
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import swal from 'sweetalert';
 const SignUp = () => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -18,7 +19,7 @@ const SignUp = () => {
 				navigate('/')
 			})
 			.catch((error) => {
-				alert(error.message)
+				 swal("Oops! Something went wrong.", error.message);
 			})
 	}
 	return (

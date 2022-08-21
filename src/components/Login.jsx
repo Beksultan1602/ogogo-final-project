@@ -3,9 +3,11 @@ import { setUser } from '../redux/slices/userSlice'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
 import Form from '../components/Form'
+import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert'
 const Login = () => {
 	const dispatch = useDispatch()
-
+	const navigate = useNavigate()
 
 	const handleLogin = (email, password) => {
 		const auth = getAuth()
@@ -16,10 +18,10 @@ const Login = () => {
 					id: user.uid,
 					token: user.accessToken
 				}))
-
+				navigate('/')
 			})
 			.catch((error) => {
-				alert(error.message)
+				 swal("Oops! Something went wrong.", error.message);
 			})
 	}
 	return (

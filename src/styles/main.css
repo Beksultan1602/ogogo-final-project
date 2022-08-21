@@ -16,3 +16,29 @@
 .main-bg {
 	color: #100e19;
 }
+
+.swal-modal {
+
+  border: 3px solid white;
+}
+
+.swal-text {
+	background: none;
+  display: flex;
+  font-size: large;
+  text-align: left;
+  color: red;
+	padding: 0 13px 0px 16px;
+}
+.swal-footer {
+	background: none;
+}
+.swal-button {
+	border-radius: 0px;
+	background-color: red;
+}
+.swal-title {
+	color: red;
+	background: none;
+	text-align: left;
+}

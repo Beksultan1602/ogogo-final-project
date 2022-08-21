@@ -53,7 +53,6 @@ const Home = () => {
 			.then(res => res.json())
 			.then(data => {
 				setFiltered(data.results)
-				console.log(data.results)
 				setLoading(false)
 			})
 	}, [sortType, categoryId, currentPage, searchValue])

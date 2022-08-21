@@ -7,14 +7,16 @@ import paginate from './slices/paginateSlice'
 
 // api
 import { commetsApi } from './api/commentsApi'
+import { favoritesApi } from './api/favoritesApi'
 export const store = configureStore({
 	reducer: {
 		filters,
 		user: userReducer,
 		paginate,
 		search,
-		[commetsApi.reducerPath]: commetsApi.reducer
+		[commetsApi.reducerPath]: commetsApi.reducer,
+		[favoritesApi.reducerPath]: favoritesApi.reducer
 
 	},
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(commetsApi.middleware)
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(commetsApi.middleware).concat(favoritesApi.middleware)
 })
