@@ -6,6 +6,7 @@ import MovieInfo from './pages/MovieInfo'
 import Register from './pages/RegisterPage'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
+import Footer from './layouts/Footer'
 
 function App() {
 	return (
@@ -17,9 +18,10 @@ function App() {
 				<Route path='/favorites' element={<Favorites />} />
 				<Route path='/login' element={<Login />} />
 				<Route path='/register' element={<Register />} />
-
 				<Route path='/*' element={<NotFound />} />
 			</Routes>
+
+			<Footer />
 		</div>
 	)
 }

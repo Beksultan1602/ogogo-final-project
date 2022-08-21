@@ -4,7 +4,6 @@ import MovieBox from '../components/MovieBox'
 
 import { Link, Navigate } from 'react-router-dom'
 
-
 import { motion } from 'framer-motion'
 
 import Sort from '../components/Sort'
@@ -20,9 +19,9 @@ import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
 import Loader from '../components/ui/Loader'
 
-const searchApi = 'https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=en-US&page=1&include_adult=false'
+const searchApi =
+	'https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=en-US&page=1&include_adult=false'
 const Home = () => {
-
 	const sortType = useSelector(state => state.filters.sort.sortProperty)
 
 	const { isAuth, email } = useAuth()
@@ -54,7 +53,7 @@ const Home = () => {
 			.then(res => res.json())
 			.then(data => {
 				setFiltered(data.results)
-				console.log(data.results);
+				console.log(data.results)
 				setLoading(false)
 			})
 	}, [sortType, categoryId, currentPage, searchValue])
@@ -75,32 +74,33 @@ const Home = () => {
 				.replace(/ /g, '')
 				.includes(searchValue.toLowerCase().replace(/ /g, ''))
 		)
-		.map(movie => 
+		.map(movie => (
 			<Link key={movie.id} to={`/movie-info/${movie.id}`}>
 				<MovieBox key={movie.id} {...movie} />
-				
 			</Link>
-			)
+		))
 	return (
 		<div>
-
 			<Carousel filtered={filtered} />
 			<div className='flex justify-center lg:justify-between items-center container mx-auto mb-6 flex-wrap lg:flex-nowrap gap-8 lg:gap-0'>
-
 				<Categories
 					setFiltered={setFiltered}
 					activeGenre={categoryId}
 					setActiveGenre={changeCategory}
 				/>
-				<Sort  />
+				<Sort />
 			</div>
-			
-			{loading ? (<Loader />) : <div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
-				{movieItems}
-			</div>}
+
+			{loading ? (
+				<Loader />
+			) : (
+				<div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
+					{movieItems}
+				</div>
+			)}
 			<Pagination onChangePage={changeCurrentPage} />
 		</div>
-	) 
+	)
 }
 
 export default Home
