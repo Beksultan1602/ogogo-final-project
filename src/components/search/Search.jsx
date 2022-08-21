@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { BsBackspace, BsSearch } from 'react-icons/bs'
 import { useDispatch } from 'react-redux'
 import { debounce } from 'lodash'
@@ -11,7 +11,6 @@ const Search = () => {
 	const [value, setValue] = useState('')
 	const dispatch = useDispatch()
 	const inputRef = useRef()
-
 	const updateSearchValue = useCallback(
 		debounce(str => {
 			dispatch(setSearchValue(str))
@@ -28,21 +27,23 @@ const Search = () => {
 		inputRef.current.focus()
 	}
 	return (
-		<div className='flex items-center rounded py-1 border border-slate-500 mt-6 md:mt-0'>
-			<BsSearch className='pl-1 h-4 w-6 ml-2' />
-			<input
-				className='w-full px-4 outline-none p-2  		'
-				ref={inputRef}
-				placeholder='Поиск ...'
-				value={value}
-				onChange={changeInputValue}
-			/>
-			{value && (
-				<BsBackspace
-					onClick={() => removeSearch()}
-					className='cursor-pointer mr-2 w-6'
-				/>
-			)}
+		<div className='relative'>
+					<div className='w-full flex items-center mx-auto rounded-lg border-2'>
+						<BsSearch className='h-6 w-6 ml-2' />
+						<input
+							className='px-4 outline-none p-2'
+							ref={inputRef}
+							placeholder='Поиск...'
+							value={value}
+							onChange={changeInputValue}
+						/>
+						{value && (
+							<BsBackspace
+								onClick={() => removeSearch()}
+								className='cursor-pointer w-6 h-6 mr-2'
+							/>
+						)}
+					</div>
 		</div>
 	)
 }

@@ -46,26 +46,40 @@ const Home = () => {
 		const sortBy = sortType.replace('-', '')
 		const genre = categoryId > 0 ? `${categoryId}` : ''
 		// const search = searchValue ? `${searchValue}` : ''
-
-		fetch(
-			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
-		)
-			.then(res => res.json())
-			.then(data => {
-				setFiltered(data.results)
+		async function fetchMovies(queryValue) {
+		if (!queryValue) {
+				fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`)
+				.then(res => res.json())
+				.then(data => setFiltered(data.results))
 				setLoading(false)
-			})
+				return 
+		}
+		try {
+			const response = await Promise.all([
+			
+			fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`).then(res => res.json()),
+			// fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`).then(res => res.json()),
+		]).then(
+			data => {
+				data.forEach(items => setFiltered(items.results))
+				setLoading(false)
+			}
+		)
+		} catch(error) {
+			
+		}	
+	}
+		fetchMovies(searchValue)
+
 	}, [sortType, categoryId, currentPage, searchValue])
 
-	// нижний useEffect сортирует как надо, по всем страницам, если засовывать search и query в запрос сверху, запрос ломается, не понятно как объеденить их
-	// useEffect(() => {
-	// 		fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`)
-	// 		.then(res => res.json())
-	// 		.then(data => {
-	// 			setSearched(data.results)
-	// 		})
-	// 	}, [searchValue])
-
+	//////////////////
+	// const searchedItems = searched.map(item => (
+	// 	<Link key={item.id} to={`/movie-info/${item.id}`}>
+	// 		<MovieBox key={item.id} {...item}/>
+	// 	</Link>
+	// ))
+	///////////////////////
 	const movieItems = filtered
 		.filter(item =>
 			item.title
@@ -93,9 +107,14 @@ const Home = () => {
 			{loading ? (
 				<Loader />
 			) : (
-				<div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
-					{movieItems}
-				</div>
+				<>
+					<div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
+						{movieItems}
+					</div>
+					{/* <div className='absolute top-0 left-0 bg-red-500/[0.6]'>
+						<div className='w-3/4 mx-auto flex'>{searchedItems}</div>
+					</div> */}
+				</>
 			)}
 			<Pagination onChangePage={changeCurrentPage} />
 		</div>
