@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { BsBookmark } from 'react-icons/bs'
 import { Link, Navigate, useParams } from 'react-router-dom'
+import Slider from 'react-slick'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 import Comments from '../components/Comments'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/use-auth'
@@ -49,7 +52,7 @@ const MovieInfo = () => {
 		)
 			.then(res => res.json())
 			.then(data => {
-				setActors(data.cast.slice(0, 7))
+				setActors(data.cast)
 			})
 	}, [id])
 	useEffect(() => {
@@ -58,7 +61,7 @@ const MovieInfo = () => {
 		)
 			.then(res => res.json())
 			.then(data => {
-				setRecs(data.results.slice(0, 7))
+				setRecs(data.results)
 			})
 	}, [id])
 	useEffect(() => {
@@ -70,8 +73,41 @@ const MovieInfo = () => {
 				setTeaser(data.results.slice(0, 2))
 			})
 	}, [id])
-	console.log(movieInfo)
 	// console.log(allActors)
+	const settings = {
+		dots: false,
+		infinite: false,
+		speed: 500,
+		slidesToShow: 6,
+		slidesToScroll: 4,
+		initialSlide: 0,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					infinite: true,
+					dots: true,
+				},
+			},
+			{
+				breakpoint: 600,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+					initialSlide: 2,
+				},
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+		],
+	}
 	return (
 		<div>
 			<div className='container sm:mx-auto px-2'>
@@ -194,16 +230,18 @@ const MovieInfo = () => {
 						variants={textAnimation}
 						className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'
 					>
-						{actors.map((actor, index) => (
-							<li className='flex flex-col items-start' key={index}>
-								<img
-									className='rounded-lg w-44'
-									src={API_IMG + actor.profile_path}
-									alt=''
-								/>
-								<p className='text-gray-400'>{actor.name}</p>
-							</li>
-						))}
+						<Slider {...settings}>
+							{actors.map((actor, index) => (
+								<li className='flex flex-col items-start' key={index}>
+									<img
+										className='rounded-lg w-44'
+										src={API_IMG + actor.profile_path}
+										alt=''
+									/>
+									<p className='text-gray-400'>{actor.name}</p>
+								</li>
+							))}
+						</Slider>
 					</motion.ul>
 				</motion.div>
 				<motion.div
@@ -224,15 +262,17 @@ const MovieInfo = () => {
 						variants={textAnimation}
 						className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'
 					>
-						{recs.map(rec => (
-							<Link key={rec.id} to={`/movie-info/${rec.id}`}>
-								<img
-									className='w-44 rounded-lg'
-									src={API_IMG + rec.poster_path}
-									alt=''
-								/>
-							</Link>
-						))}
+						<Slider {...settings}>
+							{recs.map(rec => (
+								<Link key={rec.id} to={`/movie-info/${rec.id}`}>
+									<img
+										className='w-44 rounded-lg'
+										src={API_IMG + rec.poster_path}
+										alt=''
+									/>
+								</Link>
+							))}
+						</Slider>
 					</motion.div>
 				</motion.div>
 

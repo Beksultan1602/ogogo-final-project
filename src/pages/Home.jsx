@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Categories from '../components/Categories'
 import MovieBox from '../components/MovieBox'
 
-import { Link} from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 import Sort from '../components/Sort'
 import Pagination from '../components/Pagination/Pagination'
@@ -11,13 +10,10 @@ import Pagination from '../components/Pagination/Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCategoryId } from '../redux/slices/filterSlice'
 
-
 import { useAuth } from '../hooks/use-auth'
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
 import Loader from '../components/ui/Loader'
-
-
 
 const Home = () => {
 	const sortType = useSelector(state => state.filters.sort.sortProperty)
@@ -43,9 +39,11 @@ const Home = () => {
 		const sortBy = sortType.replace('-', '')
 		const genre = categoryId > 0 ? `${categoryId}` : ''
 
-		fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`)
-		.then(res => res.json())
-		.then(data => setFiltered(data.results))
+		fetch(
+			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
+		)
+			.then(res => res.json())
+			.then(data => setFiltered(data.results))
 		setLoading(false)
 	}, [sortType, categoryId, currentPage, searchValue])
 
@@ -56,15 +54,13 @@ const Home = () => {
 	// 	</Link>
 	// ))
 	///////////////////////
-	const movieItems = filtered
-		.map(movie => (
-			<Link key={movie.id} to={`/movie-info/${movie.id}`}>
-				<MovieBox key={movie.id} {...movie} />
-			</Link>
-		))
+	const movieItems = filtered.map(movie => (
+		<Link key={movie.id} to={`/movie-info/${movie.id}`}>
+			<MovieBox key={movie.id} {...movie} />
+		</Link>
+	))
 	return (
 		<div>
-
 			<Carousel filtered={filtered} />
 			<div className='flex justify-center lg:justify-between items-center container mx-auto mb-6 flex-wrap lg:flex-nowrap gap-8 lg:gap-0'>
 				<Categories
