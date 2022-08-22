@@ -10,20 +10,27 @@ import { BiExit, BiSearchAlt2 } from 'react-icons/bi'
 import { BsBookmark } from 'react-icons/bs'
 import { AiOutlineHome } from 'react-icons/ai'
 import { GiCancel } from 'react-icons/gi'
+import SearchedMovies from '../pages/SearchedMovies'
 const Header = () => {
 	const dispatch = useDispatch()
 	const { isAuth } = useAuth()
 	const [openProfile, setOpenProfile] = useState(false)
 	const [searchActive, setSearchActive] = useState(false)
-
+	const [searchOpen, setSearchOpen] = useState(false)
 	return (
 		<div className='flex justify-between items-center pt-4 container mx-auto mb-20 '>
 			<Link to='/' className='text-3xl main-text-color font-bold ml-2 sm:ml-0'>Ogogo <span>TV</span></Link>
-			<div className='hidden lg:flex items-center gap-6'>
-
-				<Search />
-				
+			<div onClick={() => setSearchOpen(true)} className='hidden lg:flex items-center gap-6 border-2 cursor-pointer py-2 w-1/4 justify-between px-2'>				
+				<h2>Найти фильм</h2>
+				<BiSearchAlt2 className='w-8 h-8'/>
 			</div>
+			{ searchOpen ? 
+				<div className=''>
+					<SearchedMovies setSearchOpen={setSearchOpen}/>
+					<button className='fixed z-30 text-4xl right-32 top-6' onClick={() => setSearchOpen(false)}>X</button>
+				</div> 
+				: null}
+			
 			{ isAuth 
 				? 	
 				<div className='items-center justify-center gap-6 hidden sm:flex'>
@@ -43,9 +50,9 @@ const Header = () => {
 				</div>
 				: 
 				null }
-			{searchActive ? <div className='transition px-2 container mx-auto w-full flex justify-between items-center h-1/4 fixed main-bg right-0 left-0 z-10'>
-				<Search />
-				<GiCancel onClick={() => setSearchActive(false)} className='mt-6 cursor-pointer h-8 w-8 bg-transparent'/>
+			{searchActive ? <div className='px-2 container mx-auto w-full flex justify-between items-center h-1/4 fixed main-bg right-0 left-0 z-10'>
+				<SearchedMovies />
+				<GiCancel onClick={() => setSearchActive(false)} className='fixed z-30 right-8 lg:right-32 cursor-pointer top-6 h-8 w-8 bg-transparent'/>
 			</div> : ''}
 			<div className='lg:hidden flex fixed bottom-0 py-4 w-full z-10 justify-evenly items-center left-0 bg-purple-900/[0.7]'>
 				<Link className='bg-transparent' to='/'>

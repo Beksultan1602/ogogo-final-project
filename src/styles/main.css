@@ -42,3 +42,37 @@
 	background: none;
 	text-align: left;
 }
+.text-overflow {
+	display: -webkit-box;
+	-webkit-line-clamp: 5;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+@media screen and (max-width: 1024px) {
+	.text-overflow {
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+@media screen and (max-width: 740px) {
+	.text-overflow {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+@media screen and (max-width: 680px) {
+	.text-overflow {
+		display: none;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
