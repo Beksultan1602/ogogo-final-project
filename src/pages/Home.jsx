@@ -47,30 +47,28 @@ const Home = () => {
 		const genre = categoryId > 0 ? `${categoryId}` : ''
 		// const search = searchValue ? `${searchValue}` : ''
 		async function fetchMovies(queryValue) {
-		if (!queryValue) {
-				fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`)
-				.then(res => res.json())
-				.then(data => setFiltered(data.results))
+			if (!queryValue) {
+				fetch(
+					`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
+				)
+					.then(res => res.json())
+					.then(data => setFiltered(data.results))
 				setLoading(false)
-				return 
-		}
-		try {
-			const response = await Promise.all([
-			
-			fetch(`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`).then(res => res.json()),
-			// fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`).then(res => res.json()),
-		]).then(
-			data => {
-				data.forEach(items => setFiltered(items.results))
-				setLoading(false)
+				return
 			}
-		)
-		} catch(error) {
-			
-		}	
-	}
+			try {
+				const response = await Promise.all([
+					fetch(
+						`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`
+					).then(res => res.json()),
+					// fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`).then(res => res.json()),
+				]).then(data => {
+					data.forEach(items => setFiltered(items.results))
+					setLoading(false)
+				})
+			} catch (error) {}
+		}
 		fetchMovies(searchValue)
-
 	}, [sortType, categoryId, currentPage, searchValue])
 
 	//////////////////
