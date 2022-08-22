@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import filters from './slices/filterSlice'
 import search from './slices/searchSlice'
 
+
 import userReducer from './slices/userSlice'
 import paginate from './slices/paginateSlice'
 
@@ -16,7 +17,7 @@ export const store = configureStore({
 		search,
 		[commetsApi.reducerPath]: commetsApi.reducer,
 		[favoritesApi.reducerPath]: favoritesApi.reducer
-
+		
 	},
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(commetsApi.middleware).concat(favoritesApi.middleware)
 })

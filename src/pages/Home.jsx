@@ -34,6 +34,9 @@ const Home = () => {
 	const changeCategory = i => {
 		dispatch(setCategoryId(i))
 	}
+	const scrollToTop = () => {
+		window.scrollTo(0, 0)
+	}
 	useEffect(() => {
 		const order = sortType.includes('-') ? 'asc' : 'desc'
 		const sortBy = sortType.replace('-', '')
@@ -55,7 +58,7 @@ const Home = () => {
 	// ))
 	///////////////////////
 	const movieItems = filtered.map(movie => (
-		<Link key={movie.id} to={`/movie-info/${movie.id}`}>
+		<Link onClick={() => scrollToTop()} key={movie.id} to={`/movie-info/${movie.id}`}>
 			<MovieBox key={movie.id} {...movie} />
 		</Link>
 	))

@@ -67,6 +67,11 @@
 		text-overflow: ellipsis;
 	}
 }
+/* @media screen and (max-width: 768px) {
+	.slick-slide {
+		width: 200px !important;
+	}
+} */
 @media screen and (max-width: 740px) {
 	.text-overflow {
 		display: -webkit-box;
@@ -83,5 +88,13 @@
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 		text-overflow: ellipsis;
+	}
+	.slick-slider {
+		overflow: hidden;
+		width: 700px !important;
+	}
+	.slick-initialized {
+		overflow: hidden;
+		width: 700px !important;
 	}
 }

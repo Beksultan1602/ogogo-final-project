@@ -11,23 +11,23 @@ const Carousel = ({ filtered }) => {
 	// const [current, setCurrent] = useState(0)
 	const length = filtered.length
 	const settings = {
-		dots: true,
+		dots: false,
 		infinite: true,
 		slidesToShow: 1,
 		slidesToScroll: 1,
-		autoplay: true,
-		speed: 9000,
-		autoplaySpeed: 2000,
+		autoplay: false,
+		speed: 500,
 		cssEase: 'linear',
+
 	}
 	return (
 		<section className='slider mb-20 container mx-auto'>
 			<Slider {...settings}>
 				{filtered.map((slide, index) => {
 					return (
-						<div>
+						<div key={index}>
 							{
-								<div className='slider-items flex justify-between items-start max-w-6xl gap-8 mx-2'>
+								<div className='slider-items flex justify-between items-start max-w-auto md:max-w-6xl gap-8 mx-2'>
 									<img
 										src={API_IMG + slide.backdrop_path}
 										alt='No Image'
@@ -40,7 +40,7 @@ const Carousel = ({ filtered }) => {
 										<h3>Дата выхода: {slide.release_date}</h3>
 										<Link
 											to={`/movie-info/${slide.id}`}
-											className='mx-auto lg:mx-0 px-4 py-2 pink rounded-full w-1/3 text-center'
+											className='mx-auto lg:mx-0  py-2 pink rounded-full w-1/3 text-center'
 										>
 											Подробнее
 										</Link>

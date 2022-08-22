@@ -9,6 +9,10 @@ const Form = ({title, handleClick}) => {
 	const [emailDirty, setEmailDirty] = useState(false)
 	const [passwordDirty, setPasswordDirty] = useState(false)
 	const [formValid, setFormValid] = useState(false)
+	const [passwordType, setPasswordType] = useState('password')
+	const showPassword = () => {
+		setPasswordType('text')
+	}
 	const emailHandler = (e) => {
 		setEmail(e.target.value)
 		const re =
@@ -52,10 +56,11 @@ const Form = ({title, handleClick}) => {
 					onBlur={() => setPasswordDirty(true)}
 					className="p-4 w-full outline-none" 
 					name='password' 
-					type="password" 
+					type={passwordType}
 					value={password} 
 					onChange={e => passwordHandler(e)} 
 					placeholder='Пароль'/>
+					<button onClick={() => showPassword('text')} className="whitespace-nowrap">Показать пароль</button>
 			</div>
 			{passwordDirty ? <strong className="text-red-400">{passwordError}</strong> : null}
 			<button disabled={!formValid} className={formValid ? 'pink rounded-full mt-6 w-1/4 max-w-sm py-4 font-semibold' : 'rounded-full mt-6 w-1/4 max-wsm py-4 font-semibold bg-gray-500'} onClick={() => handleClick(email, password)}>{title}</button>
