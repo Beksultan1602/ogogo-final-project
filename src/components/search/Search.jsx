@@ -27,24 +27,23 @@ const Search = () => {
 		inputRef.current.focus()
 	}
 	return (
-		<div className='relative'>
-					<div className='w-full flex items-center mx-auto rounded-lg border-2'>
-						<BsSearch className='h-6 w-6 ml-2' />
-						<input
-							className='px-4 outline-none p-2'
-							ref={inputRef}
-							placeholder='Поиск...'
-							value={value}
-							onChange={changeInputValue}
-						/>
-						{value && (
-							<BsBackspace
-								onClick={() => removeSearch()}
-								className='cursor-pointer w-6 h-6 mr-2'
-							/>
-						)}
-					</div>
-		</div>
+			<div className='w-full flex items-center mx-auto bg-gray-700 '>
+				<BsSearch className='h-6 w-6 ml-2 bg-gray-700' />
+				<input
+					className='px-4 outline-none p-2 w-full bg-gray-700 '
+					ref={inputRef}
+					placeholder='Поиск...'
+					value={value}
+					onChange={changeInputValue}
+				/>
+				{value && (
+					<BsBackspace
+						onClick={() => removeSearch()}
+						className='cursor-pointer w-6 h-6 mr-2 bg-gray-700'
+					/>
+				)}
+			</div>
+
 	)
 }
 

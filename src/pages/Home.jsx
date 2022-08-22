@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Categories from '../components/Categories'
 import MovieBox from '../components/MovieBox'
 
-import { Link, Navigate } from 'react-router-dom'
-
-import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 
 import Sort from '../components/Sort'
 import Pagination from '../components/Pagination/Pagination'
@@ -12,15 +10,11 @@ import Pagination from '../components/Pagination/Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCategoryId } from '../redux/slices/filterSlice'
 
-import { SearchContext } from '../App'
-
 import { useAuth } from '../hooks/use-auth'
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
 import Loader from '../components/ui/Loader'
 
-const searchApi =
-	'https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=en-US&page=1&include_adult=false'
 const Home = () => {
 	const sortType = useSelector(state => state.filters.sort.sortProperty)
 
@@ -31,8 +25,7 @@ const Home = () => {
 
 	const [loading, setLoading] = useState(true)
 	const [filtered, setFiltered] = useState([])
-	const [searched, setSearched] = useState([])
-	// const [currentPage, setCurrentPage] = useState(1)
+
 	const currentPage = useSelector(state => state.paginate.currentPage)
 	const changeCurrentPage = i => {
 		dispatch(setCurrentPage(i))
@@ -45,30 +38,13 @@ const Home = () => {
 		const order = sortType.includes('-') ? 'asc' : 'desc'
 		const sortBy = sortType.replace('-', '')
 		const genre = categoryId > 0 ? `${categoryId}` : ''
-		// const search = searchValue ? `${searchValue}` : ''
-		async function fetchMovies(queryValue) {
-			if (!queryValue) {
-				fetch(
-					`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
-				)
-					.then(res => res.json())
-					.then(data => setFiltered(data.results))
-				setLoading(false)
-				return
-			}
-			try {
-				const response = await Promise.all([
-					fetch(
-						`https://api.themoviedb.org/3/search/movie?api_key=d8888bf513595a2de41979608397fb02&language=ru&query=${searchValue}&page=${currentPage}&include_adult=false`
-					).then(res => res.json()),
-					// fetch(`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`).then(res => res.json()),
-				]).then(data => {
-					data.forEach(items => setFiltered(items.results))
-					setLoading(false)
-				})
-			} catch (error) {}
-		}
-		fetchMovies(searchValue)
+
+		fetch(
+			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
+		)
+			.then(res => res.json())
+			.then(data => setFiltered(data.results))
+		setLoading(false)
 	}, [sortType, categoryId, currentPage, searchValue])
 
 	//////////////////
@@ -78,18 +54,11 @@ const Home = () => {
 	// 	</Link>
 	// ))
 	///////////////////////
-	const movieItems = filtered
-		.filter(item =>
-			item.title
-				.toLowerCase()
-				.replace(/ /g, '')
-				.includes(searchValue.toLowerCase().replace(/ /g, ''))
-		)
-		.map(movie => (
-			<Link key={movie.id} to={`/movie-info/${movie.id}`}>
-				<MovieBox key={movie.id} {...movie} />
-			</Link>
-		))
+	const movieItems = filtered.map(movie => (
+		<Link key={movie.id} to={`/movie-info/${movie.id}`}>
+			<MovieBox key={movie.id} {...movie} />
+		</Link>
+	))
 	return (
 		<div>
 			<Carousel filtered={filtered} />
@@ -101,7 +70,6 @@ const Home = () => {
 				/>
 				<Sort />
 			</div>
-
 			{loading ? (
 				<Loader />
 			) : (
