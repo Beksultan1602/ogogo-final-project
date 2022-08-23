@@ -24,6 +24,7 @@ const textAnimation = {
 	}),
 }
 const MovieInfo = () => {
+
 	const favId = useSelector(state => state.user.id)
 	const [addFavorite, { isError }] = useAddFavoritesMutation()
 	const handleAddFavorite = async () => {
@@ -41,6 +42,7 @@ const MovieInfo = () => {
 	const [recs, setRecs] = useState([])
 	const [teaser, setTeaser] = useState([])
 	const [loading, setLoading] = useState(true)
+
 	useEffect(() => {
 		fetch(
 			`https://api.themoviedb.org/3/movie/${id}?api_key=d8888bf513595a2de41979608397fb02&language=ru`
@@ -128,12 +130,7 @@ const MovieInfo = () => {
 						</p>
 						<div>
 							<h1 className='text-gray-400'>Жанры:</h1>
-							{/* <ul>
-								{movieInfo.map(genre => (
-									<li>{genre}</li>
-								))}
-							</ul> */}
-							{/* {movieInfo.genres} */}
+
 							<div className='flex flex-wrap'>
 								{movieInfo.genres &&
 									movieInfo.genres.slice(0, 5).map((genre, i) => (
@@ -148,7 +145,6 @@ const MovieInfo = () => {
 									))}
 							</div>
 						</div>
-						{console.log(movieInfo)}
 					</div>
 				</div>
 				)}

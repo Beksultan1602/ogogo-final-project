@@ -8,6 +8,7 @@ import Form from "./Form"
 import Login from "./Login"
 import { Link } from "react-router-dom"
 const Comments = () => {
+	const uid = useSelector( state => state.user.id )
 	const [modalActive, setModalActive] = useState(false)
 	const { isAuth, email } = useAuth()
 	const userName = useSelector(state => state.user.email)
@@ -18,10 +19,11 @@ const Comments = () => {
 	const [deleteComment] = useDeleteCommentMutation()
 	const handleAddComment = async () => {
 		if(newComment) {
-			await addComment({name: newComment}).unwrap()
+			await addComment({name: newComment, comId: uid, user: userName}).unwrap()
 			setNewComment('')
 		}
 	}
+
 	const handleDeleteComment = async (id) => {
 		await deleteComment(id).unwrap()
 	}
@@ -41,16 +43,17 @@ const Comments = () => {
 					<option value="30">30</option>
 				</select>
 				<ul className="flex flex-col">
-					{data.map(item => (
-							<div className="mb-4">
-								<h1 className="text-bold text-xl">{userName}</h1>
+					{data.map(item => (	
+							 <div className="mb-4" key={item.id}>
+								<h1 className="text-bold text-xl">{item.user}</h1>
 								<div className="flex justify-between items-center">
 									<li className="text-gray-500">{item.name}</li>
 									<MdOutlineCancel className="cursor-pointer" onClick={() => handleDeleteComment(item.id)} />
 								</div>
-							</div>
+							</div> 
 					))}
 				</ul>
+
 			</>
 			) : <div className="h-56 flex justify-center items-center">
 						<button onClick={() => setModalActive(true)} className="pink py-2 w-1/2 rounded-full">Оставить комментарий</button>
