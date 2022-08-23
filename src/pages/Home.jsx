@@ -10,7 +10,7 @@ import Pagination from '../components/Pagination/Pagination'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCategoryId } from '../redux/slices/filterSlice'
 
-import { useAuth } from '../hooks/use-auth'
+
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
 import Loader from '../components/ui/Loader'
@@ -18,7 +18,7 @@ import Loader from '../components/ui/Loader'
 const Home = () => {
 	const sortType = useSelector(state => state.filters.sort.sortProperty)
 
-	const { isAuth, email } = useAuth()
+
 	const dispatch = useDispatch()
 	const categoryId = useSelector(state => state.filters.categoryId)
 	const searchValue = useSelector(state => state.search.searchValue)
@@ -50,13 +50,6 @@ const Home = () => {
 		setLoading(false)
 	}, [sortType, categoryId, currentPage, searchValue])
 
-	//////////////////
-	// const searchedItems = searched.map(item => (
-	// 	<Link key={item.id} to={`/movie-info/${item.id}`}>
-	// 		<MovieBox key={item.id} {...item}/>
-	// 	</Link>
-	// ))
-	///////////////////////
 	const movieItems = filtered.map(movie => (
 		<Link onClick={() => scrollToTop()} key={movie.id} to={`/movie-info/${movie.id}`}>
 			<MovieBox key={movie.id} {...movie} />
@@ -80,9 +73,6 @@ const Home = () => {
 					<div className='grid justify-items-center grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 px-4 gap-6 container mx-auto justify-center'>
 						{movieItems}
 					</div>
-					{/* <div className='absolute top-0 left-0 bg-red-500/[0.6]'>
-						<div className='w-3/4 mx-auto flex'>{searchedItems}</div>
-					</div> */}
 				</>
 			)}
 			<Pagination onChangePage={changeCurrentPage} />

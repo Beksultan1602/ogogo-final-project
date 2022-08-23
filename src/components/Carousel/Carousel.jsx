@@ -18,7 +18,6 @@ const Carousel = ({ filtered }) => {
 		autoplay: false,
 		speed: 500,
 		cssEase: 'linear',
-
 	}
 	return (
 		<section className='slider mb-20 container mx-auto'>

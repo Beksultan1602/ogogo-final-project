@@ -27,12 +27,12 @@ const Chat = () => {
 	}
 
 	return (
-		<div className='fixed bottom-0 right-0 bg-transparent'>
+		<div className='fixed bottom-4 right-4 bg-transparent hidden lg:block'>
 			<div onClick={() => setChatVisible(!chatVisible)} className='w-12 h-12 bg-purple-700 rounded-full flex justify-center items-center cursor-pointer'>
 				<AiOutlineMessage className='bg-transparent w-8 h-8'/>
 			</div>
 			{chatVisible ? (
-				<div className='h-3/4 w-1/4 bg-gray-700 fixed bottom-12 right-12 flex flex-col justify-between '>
+				<div className='h-3/4 w-1/4 bg-gray-700 fixed bottom-16 right-16 flex flex-col justify-between '>
 				<div className='overflow-scroll overflow-x-hidden'>
 					{messages.map((msg, index) => (				
 						<div className={uid === msg.uid ? 'bg-gray-900 pl-4 py-2' : 'bg-red-900 pl-4 py-2'} key={index}>

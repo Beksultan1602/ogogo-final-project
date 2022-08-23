@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/use-auth'
 const Footer = () => {
 	const { isAuth } = useAuth()
 	return (
-		<div className='flex items-center justify-between container mx-auto py-12 lg:flex hidden'>
+		<div className='flex items-center justify-between container mx-auto py-12 flex pb-24'>
 			<p>© 2022 «JS GROUP»</p>
 			<div className='flex justify-end gap-7  '>
 				<a href='https://www.youtube.com/ ' rel='noreferrer' target='_blank'>

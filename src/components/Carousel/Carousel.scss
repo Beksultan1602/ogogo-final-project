@@ -3,14 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  @media screen and (max-width: 768px) {
-	.slick-slide {
-		width: 700px !important;
-	}
-}
-   @media screen and (max-width: 640px) {
-    flex-direction: column;
-   }
+  overflow: hidden;
   .right-arrow {
     cursor: pointer;
     font-size: 50px;

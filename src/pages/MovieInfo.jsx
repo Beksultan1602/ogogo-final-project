@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { BsBookmark } from 'react-icons/bs'
-import { Link, Navigate, useParams } from 'react-router-dom'
+import { Link,  useParams } from 'react-router-dom'
 import Loader from '../components/ui/Loader'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+
+
 import Comments from '../components/Comments'
-import Button from '../components/ui/Button'
+import { useSelector } from 'react-redux';
 import { useAuth } from '../hooks/use-auth'
 import { useAddFavoritesMutation } from '../redux/api/favoritesApi'
 import { motion } from 'framer-motion'
-import  './MovieInfo.css'
+
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
-const YOU_PLAYER = 'https://www.youtube.com/watch?v='
+
 const textAnimation = {
 	hidden: {
 		x: -100,
@@ -25,12 +24,14 @@ const textAnimation = {
 	}),
 }
 const MovieInfo = () => {
+	const favId = useSelector(state => state.user.id)
 	const [addFavorite, { isError }] = useAddFavoritesMutation()
 	const handleAddFavorite = async () => {
 		await addFavorite({
 			title: movieInfo.title,
 			backdrop_path: movieInfo.poster_path,
 			movieId: movieInfo.id,
+			favId: favId
 		}).unwrap()
 	}
 	const { isAuth, email } = useAuth()
@@ -56,7 +57,7 @@ const MovieInfo = () => {
 		)
 			.then(res => res.json())
 			.then(data => {
-				setActors(data.cast)
+				setActors(data.cast.slice(0, 9))
 			})
 	}, [id])
 	useEffect(() => {
@@ -77,45 +78,6 @@ const MovieInfo = () => {
 				setTeaser(data.results.slice(0, 2))
 			})
 	}, [id])
-	// console.log(allActors)
-	const settings = {
-		dots: false,
-		infinite: false,
-		speed: 500,
-		slidesToShow: 6,
-		slidesToScroll: 4,
-		initialSlide: 0,
-		responsive: [
-			{
-				breakpoint: 1280,
-				settings: {
-					slidesToShow: 5,
-					slidesToScroll: 3,
-				},
-			},
-			{
-				breakpoint: 1024,
-				settings: {
-					slidesToShow: 4,
-					slidesToScroll: 2,
-				},
-			},
-			{
-				breakpoint: 768,
-				settings: {
-					slidesToShow: 2,
-					slidesToScroll: 1,
-				},
-			},
-			{
-				breakpoint: 440,
-				settings: {
-					slidesToShow: 1,
-					slidesToScroll: 1,
-				},
-			},
-		],
-	}
 	return (
 		<div>
 			<div className='container sm:mx-auto px-2'>
@@ -240,7 +202,7 @@ const MovieInfo = () => {
 						variants={textAnimation}
 						className='flex justify-center sm:justify-start gap-4 flex-wrap xl:flex-nowrap'
 					>
-						<Slider {...settings}>
+		
 							{actors.map((actor, index) => (
 								<li className='flex flex-col items-start' key={index}>
 									<img
@@ -251,7 +213,7 @@ const MovieInfo = () => {
 									<p className='text-gray-400'>{actor.name}</p>
 								</li>
 							))}
-						</Slider>
+			
 					</motion.ul>
 				</motion.div>
 				<motion.div

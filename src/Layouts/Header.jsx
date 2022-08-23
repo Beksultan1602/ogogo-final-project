@@ -34,8 +34,8 @@ const Header = () => {
 			{ isAuth 
 				? 	
 				<div className='items-center justify-center gap-6 hidden sm:flex'>
-					<Link className='text-xl' to='/favorites'>Избранное</Link>
-					<button className='text-xl' onClick={() => dispatch(removeUser())}>Выйти</button> 
+					<Link className='text-xl text-gray-400' to='/favorites'>Избранное</Link>
+					<button className='text-xl text-gray-400' onClick={() => dispatch(removeUser())}>Выйти</button> 
 				</div>
 				: 
 				<Link to='/login' className='px-2 sm:px-4 py-3 pink rounded-lg mr-2 sm:mr-0 whitespace-nowrap'>Войти или зарегистрироваться</Link> }

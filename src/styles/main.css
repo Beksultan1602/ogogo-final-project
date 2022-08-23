@@ -89,12 +89,5 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.slick-slider {
-		overflow: hidden;
-		width: 700px !important;
-	}
-	.slick-initialized {
-		overflow: hidden;
-		width: 700px !important;
-	}
+
 }
