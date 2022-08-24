@@ -24,7 +24,6 @@ const textAnimation = {
 	}),
 }
 const MovieInfo = () => {
-
 	const favId = useSelector(state => state.user.id)
 	const [addFavorite, { isError }] = useAddFavoritesMutation()
 	const handleAddFavorite = async () => {
@@ -80,6 +79,7 @@ const MovieInfo = () => {
 				setTeaser(data.results.slice(0, 2))
 			})
 	}, [id])
+
 	return (
 		<div>
 			<div className='container sm:mx-auto px-2'>
@@ -134,7 +134,7 @@ const MovieInfo = () => {
 							<div className='flex flex-wrap'>
 								{movieInfo.genres &&
 									movieInfo.genres.slice(0, 5).map((genre, i) => (
-										<ul>
+										<ul key={i}>
 											<li
 												className=' text-center p-2 w-40 font-semibold border border-slate-300 rounded-full my-2.5 mr-2.5 outline-none'
 												key={i}

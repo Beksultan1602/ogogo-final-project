@@ -13,9 +13,7 @@ const Favorites = () => {
 	const handleDeleteFavorite = async (id) => {
 		await deleteFavorite(id).unwrap()
 	}
-	console.log(email)
-	console.log(data)
-	console.log(uid)
+
 	return (
 		<>
 			{isAuth ? <div className='mb-20'>

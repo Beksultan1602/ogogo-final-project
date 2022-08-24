@@ -55,6 +55,7 @@ const Home = () => {
 			<MovieBox key={movie.id} {...movie} />
 		</Link>
 	))
+	
 	return (
 		<div>
 			<Carousel filtered={filtered} />
