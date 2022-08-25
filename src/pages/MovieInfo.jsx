@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { BsBookmark } from 'react-icons/bs'
 import { Link,  useParams } from 'react-router-dom'
 import Loader from '../components/ui/Loader'
-
+import { useDeleteFavoritesMutation } from '../redux/api/favoritesApi'
 
 import Comments from '../components/Comments'
 import { useSelector } from 'react-redux';
 import { useAuth } from '../hooks/use-auth'
-import { useAddFavoritesMutation } from '../redux/api/favoritesApi'
+import { useAddFavoritesMutation, useGetFavoritesQuery } from '../redux/api/favoritesApi'
 import { motion } from 'framer-motion'
 
 const API_IMG = 'https://image.tmdb.org/t/p/w500/'
@@ -24,6 +24,14 @@ const textAnimation = {
 	}),
 }
 const MovieInfo = () => {
+	const allMovies = useSelector(state => state.movies.allMovies)
+
+	const {data = [], isLoading} = useGetFavoritesQuery()
+	const [deleteFavorite] = useDeleteFavoritesMutation()
+	const handleDeleteFavorite = async (id) => {
+		await deleteFavorite(id).unwrap()
+	}
+
 	const favId = useSelector(state => state.user.id)
 	const [addFavorite, { isError }] = useAddFavoritesMutation()
 	const handleAddFavorite = async () => {
@@ -107,6 +115,7 @@ const MovieInfo = () => {
 									<BsBookmark className='inline bg-inherit ml-4' />
 								</button>
 							) : null}
+							
 						</div>
 						<p className='text-gray-400'>{movieInfo.overview}</p>
 						<p className='text-gray-400'>Статус: {movieInfo.status}</p>
@@ -241,8 +250,7 @@ const MovieInfo = () => {
 						))}
 					</motion.div>
 				</motion.div>
-
-				<Comments />
+				<Comments movieInfo={movieInfo}/> 
 			</div>
 		</div>
 	)

@@ -4,10 +4,10 @@ import { MdOutlineCancel } from 'react-icons/md'
 import { useSelector } from "react-redux"
 import { useAuth } from "../hooks/use-auth"
 import Modal from "../components/ui/Modal"
-import Form from "./Form"
+
 import Login from "./Login"
-import { Link } from "react-router-dom"
-const Comments = () => {
+
+const Comments = ({movieInfo}) => {
 	const uid = useSelector( state => state.user.id )
 	const [modalActive, setModalActive] = useState(false)
 	const { isAuth, email } = useAuth()
@@ -19,11 +19,11 @@ const Comments = () => {
 	const [deleteComment] = useDeleteCommentMutation()
 	const handleAddComment = async () => {
 		if(newComment) {
-			await addComment({name: newComment, comId: uid, user: userName}).unwrap()
+			await addComment({name: newComment, comId: uid, user: userName, movId: movieInfo.id}).unwrap()
 			setNewComment('')
 		}
 	}
-
+	
 	const handleDeleteComment = async (id) => {
 		await deleteComment(id).unwrap()
 	}
@@ -38,12 +38,12 @@ const Comments = () => {
 				</div>
 				<select className="border rounded-lg px-4 py-2 mb-8" value={count} onChange={(e) => setCount(e.target.value)}>
 					<option value="">Все комменатрии</option>
+					<option value="5">5</option>
 					<option value="10">10</option>
-					<option value="20">20</option>
-					<option value="30">30</option>
+					<option value="15">15</option>
 				</select>
 				<ul className="flex flex-col">
-					{data.map(item => (	
+					{data.map(item => item.movId === movieInfo.id ? (	
 							 <div className="mb-4" key={item.id}>
 								<h1 className="text-bold text-xl">{item.user}</h1>
 								<div className="flex justify-between items-center">
@@ -51,9 +51,9 @@ const Comments = () => {
 									<MdOutlineCancel className="cursor-pointer" onClick={() => handleDeleteComment(item.id)} />
 								</div>
 							</div> 
-					))}
+							
+					) : null )}
 				</ul>
-
 			</>
 			) : <div className="h-56 flex justify-center items-center">
 						<button onClick={() => setModalActive(true)} className="pink py-2 w-1/2 rounded-full">Оставить комментарий</button>

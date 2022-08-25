@@ -13,20 +13,25 @@ import { setCategoryId } from '../redux/slices/filterSlice'
 
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
+import { setAllMovies } from '../redux/slices/moviesSlice'
 import Loader from '../components/ui/Loader'
 
 const Home = () => {
-	const sortType = useSelector(state => state.filters.sort.sortProperty)
+
 
 
 	const dispatch = useDispatch()
+	const sortType = useSelector(state => state.filters.sort.sortProperty)
 	const categoryId = useSelector(state => state.filters.categoryId)
 	const searchValue = useSelector(state => state.search.searchValue)
-
-	const [loading, setLoading] = useState(true)
-	const [filtered, setFiltered] = useState([])
-
+	const allMovies = useSelector(state => state.movies.allMovies)
 	const currentPage = useSelector(state => state.paginate.currentPage)
+	const [loading, setLoading] = useState(true)
+	// const [filtered, setFiltered] = useState([])
+
+	const setMainMovies = (data) => {
+		dispatch(setAllMovies(data))
+	}
 	const changeCurrentPage = i => {
 		dispatch(setCurrentPage(i))
 		window.scrollTo(0, 75)
@@ -46,11 +51,11 @@ const Home = () => {
 			`https://api.themoviedb.org/3/discover/movie?api_key=d8888bf513595a2de41979608397fb02&page=${currentPage}&language=ru&with_genres=${genre}&sort_by=${sortBy}.${order}`
 		)
 			.then(res => res.json())
-			.then(data => setFiltered(data.results))
+			.then(data => setMainMovies(data.results))
+			
 		setLoading(false)
 	}, [sortType, categoryId, currentPage, searchValue])
-
-	const movieItems = filtered.map(movie => (
+	const movieItems = allMovies.map(movie => (
 		<Link onClick={() => scrollToTop()} key={movie.id} to={`/movie-info/${movie.id}`}>
 			<MovieBox key={movie.id} {...movie} />
 		</Link>
@@ -58,10 +63,10 @@ const Home = () => {
 	
 	return (
 		<div>
-			<Carousel filtered={filtered} />
+			<Carousel filtered={allMovies} />
 			<div className='flex justify-center lg:justify-between items-center container mx-auto mb-6 flex-wrap lg:flex-nowrap gap-8 lg:gap-0'>
 				<Categories
-					setFiltered={setFiltered}
+					setFiltered={setMainMovies}
 					activeGenre={categoryId}
 					setActiveGenre={changeCategory}
 				/>

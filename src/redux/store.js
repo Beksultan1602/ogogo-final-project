@@ -5,6 +5,7 @@ import search from './slices/searchSlice'
 
 import userReducer from './slices/userSlice'
 import paginate from './slices/paginateSlice'
+import movies from './slices/moviesSlice'
 
 // api
 import { commetsApi } from './api/commentsApi'
@@ -15,6 +16,7 @@ export const store = configureStore({
 		user: userReducer,
 		paginate,
 		search,
+		movies,
 		[commetsApi.reducerPath]: commetsApi.reducer,
 		[favoritesApi.reducerPath]: favoritesApi.reducer
 		
