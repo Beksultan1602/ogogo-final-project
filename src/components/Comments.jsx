@@ -3,7 +3,7 @@ import { useGetCommentsQuery, useAddCommentsMutation, useDeleteCommentMutation }
 import { MdOutlineCancel } from 'react-icons/md'
 import { useSelector } from "react-redux"
 import { useAuth } from "../hooks/use-auth"
-import Modal from "../components/ui/Modal"
+import Modal from "../components/UI/Modal"
 
 import Login from "./Login"
 

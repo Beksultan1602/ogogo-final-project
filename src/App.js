@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
-import Header from './layouts/Header'
+import Header from './Layouts/Header'
 import Favorites from './pages/Favorites'
 import Login from './pages/LoginPage'
 import MovieInfo from './pages/MovieInfo'
 import Register from './pages/RegisterPage'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
-import Footer from './layouts/Footer'
+import Footer from './Layouts/Footer'
 
 function App() {
 	return (
-		<div>
+		<div className='px-6'>
 			<Header />
 			<Routes>
 				<Route path='/' element={<Home />} />

@@ -39,7 +39,7 @@ const SearchedMovies = ({setSearchOpen}) => {
 					className='w-3/4 bg-transparent flex flex-col mx-auto gap-4 '>
 				{searchedMovies.map(searched => (
 					<Link to={`/movie-info/${searched.id}`} onClick={() => setSearchOpen(false)} key={searched.id} className='flex gap-4 h-32 md:h-44 lg:h-56 p-6 bg-transparent'>
-						<img  className='' src={API_IMG + searched.backdrop_path} alt="" />
+						<img  className='w-1/3' src={API_IMG + searched.backdrop_path} alt="" />
 						<div className='bg-transparent flex flex-col gap-2 justify-start'>
 							<h1 className='bg-transparent text-xl font-semibold'>{searched.title}</h1>
 							<p className='bg-transparent h-auto text-overflow'>{searched.overview}</p>

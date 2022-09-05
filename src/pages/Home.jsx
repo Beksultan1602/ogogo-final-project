@@ -14,7 +14,7 @@ import { setCategoryId } from '../redux/slices/filterSlice'
 import Carousel from '../components/Carousel/Carousel'
 import { setCurrentPage } from '../redux/slices/paginateSlice'
 import { setAllMovies } from '../redux/slices/moviesSlice'
-import Loader from '../components/ui/Loader'
+import Loader from '../components/UI/Loader'
 
 const Home = () => {
 

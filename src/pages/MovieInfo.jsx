@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BsBookmark } from 'react-icons/bs'
 import { Link,  useParams } from 'react-router-dom'
-import Loader from '../components/ui/Loader'
+import Loader from '../components/UI/Loader'
 import { useDeleteFavoritesMutation } from '../redux/api/favoritesApi'
 
 import Comments from '../components/Comments'
