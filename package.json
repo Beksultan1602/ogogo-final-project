@@ -53,7 +53,5 @@
     "firebase": "^9.9.3",
     "postcss": "^8.4.14",
     "tailwindcss": "^3.1.7"
-  },
-  "engines": { "node": "16.17.0",
-  "npm": "8.15.0"}
+  }
 }
